@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\GreetingGenerator;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
+use App\Entity\Task;
+use App\Form\Type\TaskType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class DefaultController extends AbstractController
 {
@@ -24,38 +28,46 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/simplicity")
+     * @Route("/test")
      */
-    public function simple()
+    public function test()
     {
         return new Response('Simple! Easy! Great!');
     }
 
-
-   /**
-    * @Route("/cache/")
-    */
-    public function cache()
+    /**
+     * @Route("/implantatia.html")
+     */
+    public function implantatia()
     {
-
-        $pool = new FilesystemAdapter();
-
-        // Функция будет запущена только при отсутствии значения в кэше
-        $value = $pool->get('my_cache_key', function (ItemInterface $item) {
-            $item->expiresAfter(3600);
-
-            // ... сделать HTTP запрос или сложные вычисления
-            $computedValue = 'foobar '.date('Y-m-d H:i:s');
-
-            return $computedValue;
-        });
-
-        echo $value; // 'foobar'
-
-        // ... и удалить значение кэша по ключу
-        //$pool->delete('my_cache_key');
-
-        return new Response('Hello!');
+        return $this->render('default/implantatia.html.twig', [
+            
+        ]);
     }
 
+    /**
+     * @Route("/form")
+     */
+    public function new(Request $request): Response
+    {
+        // СЃРѕР·РґР°РµС‚ РѕР±СЉРµРєС‚ Р·Р°РґР°С‡Рё Рё РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ РЅРµРєРѕС‚РѕСЂС‹Рµ РґР°РЅРЅС‹Рµ РґР»СЏ СЌС‚РѕРіРѕ РїСЂРёРјРµСЂР°
+        $task = new Task();
+        $task->setTask('Write a blog post');
+        $task->setDueDate(new \DateTime('tomorrow'));
+
+        /*$form = $this->createFormBuilder($task)
+            ->add('task', TextType::class)
+            ->add('dueDate', DateType::class)
+            ->add('save', SubmitType::class, ['label' => 'Create Task'])
+            ->getForm();*/
+
+
+        $form = $this->createForm(TaskType::class, $task);
+
+        return $this->render('task/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
+
+        // ...
+    }
 }
