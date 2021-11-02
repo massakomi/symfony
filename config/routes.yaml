@@ -1,3 +1,11 @@
 index:
     path: /
     controller: App\Controller\DefaultController::index
+
+blog_list:
+    path: /blog
+    # значение контроллера ммеет формат 'controller_class::method_name'
+    controller: App\Controller\BlogController::list
+    # еслм действие реализуется как метод __invoke() класса контроллера,
+    # вы можете пропустить часть '::method_name':
+    # controller: App\Controller\BlogController
