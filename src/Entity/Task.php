@@ -1,13 +1,26 @@
 <?php
 // src/Entity/Task.php
 namespace App\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class Task
 {
-    protected $task;
+
+    /**
+     * @Assert\NotBlank
+     */
+    public $task;
+
+    public $createDate;
+    public $x;
+
+    /**
+     * @Assert\NotBlank
+     * @Assert\Type("\DateTime")
+     */
     protected $dueDate;
 
-    public function getTask(): string
+    /*public function getTask(): string
     {
         return $this->task;
     }
@@ -15,7 +28,7 @@ class Task
     public function setTask(string $task): void
     {
         $this->task = $task;
-    }
+    }*/
 
     public function getDueDate(): ?\DateTime
     {

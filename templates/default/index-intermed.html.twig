@@ -1,0 +1,112 @@
+
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+		<div class="block clearfix">
+			<div id="slider_top">
+				<div class="carousel_inner" role="listbox">
+					<div class="slider_left_buttom">
+					</div>
+					<div class="slider_right_buttom">
+					</div>
+					<div class="item active">
+						<!-- ссылка по которой переход при клике на картинку 1-->
+						<a href="/hygiene.html">
+							<img class="desktop" src="img/banner_2.jpg" width="1024" height="384" alt="">
+							<img class="mobile" src="img/banner_22.jpg" width="720" height="396" alt="">
+						</a>
+					</div>
+					<div class="item">
+						<!-- ссылка по которой переход при клике на картинку 2-->
+						<a href="/hygiene.html">
+							<img class="desktop" src="img/banner_2.jpg" width="1024" height="384" alt="">
+							<img class="mobile" src="img/banner_22.jpg" width="720" height="396" alt="">
+						</a>
+					</div>
+
+				</div>
+					<div class="slider_texts_area">
+						<div class="slider_text active">
+							<!-- ссылка по которой переход при клике на заголовок 1 -->
+							<a href="/hygiene.html">Профессиональная чистка зубов</a>
+						</div>
+						<div class="slider_text">
+							<!-- ссылка по которой переход при клике на заголовок 2 -->
+							<a href="/hygiene.html">Профессиональная чистка зубов</a>
+						</div>
+						<!-- 2 часть. Это заголовок слайда
+						<div class="slider_text">
+							<a href="/">Здесь заголовок</a>
+						</div>
+						конец заголовка слайда -->
+					</div>
+					<ol class="slider_indicators">
+						<li data-target="#carousel-example-generic" class="active"></li>
+						<li data-target="#carousel-example-generic" class=""></li>
+						<!-- 3 часть. Это маркер прокрутки (точка)
+						<li data-target="#carousel-example-generic" class=""></li>
+						конец маркера слайда -->
+					</ol>
+			</div>
+
+		</div>
+		<div class="block block_2 clearfix">
+			<div class="block2_item">
+				<div class="teeth_img tooth_1"></div>
+				<h3>Болит зуб или частично разрушен</h3>
+				<ul>
+					<a href="/caries.html">Лечение кариеса</a>
+					<div class="position_price">3000 Р</div>
+					<a href="/price.html">Лечение пульпита</a>
+					<div class="position_price">от 7000 Р</div>
+					<a href="/price.html">Реставрация зуба</a>
+					<div class="position_price">от 7000 Р</div>
+				</ul>
+			</div>
+			<div class="block2_item">
+				<div class="teeth_img tooth_2"></div>
+				<h3>Зуб сильно разрушен или отсутствует</h3>
+				<ul>
+					<a href="/orthopedia.html">Протезирование зубов</a>
+					<div class="position_price mobile-S_hidden">  </div>
+					<a href="/implantatia.html">Имплантация зуба</a>
+					<div class="position_price">от 15 000 Р</div>
+					<a href="/udalenie.html">Удаление зуба</a>
+					<div class="position_price">от 1200 Р</div>
+				</ul>
+			</div>
+			<div class="block2_item">
+				<div class="teeth_img tooth_3"></div>
+				<h3>Хочу красивые и здоровые зубы</h3>
+				<ul>
+					<a href="/price.html">Исправление прикуса </a><a href="http://www.intermedkomi.ru/aligners.html">элайнеры</a>
+					<div class="position_price">125 000 Р</div>
+					<a href="/hygiene.html">Профессиональная чистка зубов</a>
+					<div class="position_price">1800 Р</div>
+									</ul>
+			</div>
+		</div>
+
+			<div class="block block_4 clearfix">
+			<h2>Записаться на консультацию</h2>
+			<div class="block_4_img">
+				<img src="img/consulting.jpg" width="500" height="333">
+			</div>
+			<div class="block_4_text">
+				<div class="label" id="time">
+					30 минут
+				</div>
+				<div class="label" id="rubl">
+					Бесплатно
+				</div>
+				<div class="consult_button">
+					<a href="aboutus.html">Записаться на консультацию</a>
+				</div>
+				<p>Мы заключим договор, наш врач осмотрит вас.</p>
+				<p>Вы узнаете стоимость лечения и сроки</p>
+				<p>Если вас всё устроит, можете сразу же начать лечение.</p>
+			</div>
+		</div>
+{% endblock %}
+
