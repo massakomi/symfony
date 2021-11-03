@@ -12,13 +12,53 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ProductController extends AbstractController
 {
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function testSql()
+    {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $conn = $entityManager->getConnection();
+
+
+        $sql = '
+            SELECT * FROM product p
+            WHERE p.price > :price
+            ORDER BY p.price ASC
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['price' => 1]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        $data = $conn->fetchAllNumeric('show tables');
+        //fetchAllAssociative, fetchAllAssociativeIndexed, fetchAllKeyValue or fetchAllNumeric
+
+        echo '<pre>'; print_r($data); echo '</pre>';
+
+        exit;
+
+        $sql = '
+            SELECT * FROM product p
+            WHERE p.price > :price
+            ORDER BY p.price ASC
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['price' => $price]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAllAssociative();
+    }
+
     /**
      * @Route("/product", name="create_product")
      */
     public function createProduct(ValidatorInterface $validator): Response
     {
 
-        $this->test();
+        $this->testSql();
 
 var_dump(1); exit;
 
