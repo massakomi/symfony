@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Utils;
 use App\Entity\Product;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,29 +15,19 @@ class ProductController extends AbstractController
 {
 
 
+
+
     /**
      * {@inheritdoc}
      */
     public function testSql()
     {
 
+
         $entityManager = $this->getDoctrine()->getManager();
         $conn = $entityManager->getConnection();
 
 
-        $sql = '
-            SELECT * FROM product p
-            WHERE p.price > :price
-            ORDER BY p.price ASC
-            ';
-        $stmt = $conn->prepare($sql);
-        $stmt->execute(['price' => 1]);
-
-        // returns an array of arrays (i.e. a raw data set)
-        $data = $conn->fetchAllNumeric('show tables');
-        //fetchAllAssociative, fetchAllAssociativeIndexed, fetchAllKeyValue or fetchAllNumeric
-
-        echo '<pre>'; print_r($data); echo '</pre>';
 
         exit;
 

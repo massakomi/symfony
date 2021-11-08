@@ -3,28 +3,28 @@
 // src/EventListener/ExceptionListener.php
 namespace App\EventListener;
 
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class ExceptionListener
 {
-    public function onKernelException(GetResponseForExceptionEvent $event)
+    public function onKernelException(ExceptionEvent $event)
     {
-        // Вы получаете объект исключения из полученного события
-        $exception = $event->getException();
+        // You get the exception object from the received event
+        $exception = $event->getThrowable();
         $message = sprintf(
             'My Error says: %s with code: %s',
             $exception->getMessage(),
             $exception->getCode()
         );
 
-        // Настройте ваш объект ответа, чтобы он отображал детали исключений
+        // Customize your response object to display the exception details
         $response = new Response();
         $response->setContent($message);
 
-        // HttpExceptionInterface - это специальный тип исключения, который
-        // содержит статус кода и детали заголовка
+        // HttpExceptionInterface is a special type of exception that
+        // holds status code and header details
         if ($exception instanceof HttpExceptionInterface) {
             $response->setStatusCode($exception->getStatusCode());
             $response->headers->replace($exception->getHeaders());
@@ -32,7 +32,7 @@ class ExceptionListener
             $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        // Отправляет изменённый объект ответа событию
+        // sends the modified response object to the event
         $event->setResponse($response);
     }
 }

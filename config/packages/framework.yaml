@@ -18,7 +18,7 @@ framework:
         log: true
     form:
         legacy_error_messages: false
-    error_controller: App\Controller\DefaultController::error
+    #error_controller: App\Controller\DefaultController::error
 
 when@test:
     framework:

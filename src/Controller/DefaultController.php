@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Task;
+use App\Entity\News;
 use App\Form\Type\TaskType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,18 +20,29 @@ class DefaultController extends AbstractController
     public function index($name='test', GreetingGenerator $generator)
     {
 
-        $greeting = $generator->getRandomGreeting();
+        $repository = $this->getDoctrine()->getRepository(News::class);
+        $news = $repository->findAll();
+
+        //$greeting = $generator->getRandomGreeting();
 
         return $this->render('default/index.html.twig', [
-            'name' => $name.'*'.$greeting,
+            'news' => $news,
         ]);
         // return new Response('Hello!');
     }
 
     /**
-     * @Route("/test")
+     * @Route("/news", name="news")
      */
-    public function test()
+    public function news()
+    {
+        return new Response('Simple! Easy! Great!');
+    }
+
+    /**
+     * @Route("/news/{slug}", name="news_show")
+     */
+    public function news_show()
     {
         return new Response('Simple! Easy! Great!');
     }
@@ -48,14 +60,14 @@ class DefaultController extends AbstractController
     /**
      * {@inheritdoc}
      */
-    public function error($exception, $logger)
+    /*public function error($exception, $logger)
     {
         $res = $this->load404();
         if ($res) {
         	return new Response('Loaded!');
         }
         return new Response($exception->getMessage());
-    }
+    }*/
 
     /**
      * {@inheritdoc}

@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>404</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+
+    <link rel="shortcut icon"
+          href="/assets/favicon.ico"
+          type="image/x-icon">
+    <link rel="apple-touch-icon"
+          href="/assets/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72"
+          href="/assets/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114"
+          href="/assets/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120"
+          href="/assets/apple-touch-icon-120x120.png">
+
+
+    <script type="text/javascript" src="/assets/app-head.js?v=156" ></script>
+    <link rel="stylesheet" media="screen, projection" href="/assets/application.css?v=156"/>
+    
+	
+	<meta name="layout" content="errorsSeo">
+	
+
+
+    <script>window.yaContextCb = window.yaContextCb || []</script>
+
+</head>
+
+<body class="srv-error-indesign">
+
+
+
+
+
+
+<div
+	class="ui inverted fixed menu top-menu mobile-menu hide-desktop hide-minitablet hide-tablet">
+	<div
+		class="ui container main-wrap ">
+		<div class="menu left-part">
+			<a class="ui item sidebar-cnob">
+				<i class="icon bars"></i>
+			</a>
+			<a class="item logo-mobile" href="/"><img src="/assets/logo_text.png" class="ui logo-text"/></a>
+		</div>
+		
+		<div class="right menu right-part">
+			<a class="item search"><i class="icon search"></i></a>
+			<div class="ui popup hidden search-menu">
+				<form method="GET" action="/search/result">
+					<div class="ui form">
+						<div class="ui icon input">
+							<input required="required" placeholder="Поиск..." type="text"
+								name="searchStr" class="site-main-search"> <i
+								class="inverted circular link icon search search-submit"></i>
+						</div>
+						<div>
+
+							<div class="grouped fields">
+								<div class="field">
+									<div class="ui radio checkbox">
+										<input name="sec" type="radio" checked value="all"> <label>Везде</label>
+									</div>
+								</div>
+								<div class="field">
+									<div class="ui radio checkbox">
+										<input name="sec" type="radio" value="news"> <label>Новости</label>
+									</div>
+								</div>
+								<div class="field">
+									<div class="ui radio checkbox">
+										<input name="sec" type="radio" value="articles"> <label>Статьи</label>
+									</div>
+								</div>
+								<div class="field">
+									<div class="ui radio checkbox">
+										<input name="sec" type="radio" value="blogs"> <label>Блоги</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						или <a href="/tag">поиск по тегам</a>
+					</div>
+				</form>
+			</div>
+
+			
+				<a class="item user-login"><i class="icon user circle outline"></i></a>
+				<div class="ui popup hidden user-login-menu">
+					<div class="ui buttons">
+						<a href="https://forums.overclockers.ru/ucp.php?mode=login&amp;redirect=https://overclockers.ru"><button
+								class="ui positive button on-login">Вход</button></a>
+						<div class="or" data-text="||"></div>
+						<a href="https://forums.overclockers.ru/ucp.php?mode=register"><button
+								class="ui button on-login">Регистрация</button></a>
+					</div>
+				</div>
+			
+
+			<a class="item hostkey"
+				href="http://billing.hostkey.ru/aff.php?aff=073" target="_blank"><img src="/assets/hostkey.png" class="ui"/>
+			</a>
+
+
+		</div>
+		
+	</div>
+</div>
+
+<div class="ui inverted menu top-menu hide-mobile" itemscope
+	itemtype="http://schema.org/SiteNavigationElement">
+	<div
+		class="ui container main-wrap">
+
+		<a class="item " href="/" itemprop="url"><img src="/assets/logo_text.png" class="ui logo-text"/></a>
+		<a class="item"
+			href="https://forums.overclockers.ru" itemprop="url">Конференция</a>
+
+		<div class="ui dropdown item submenu-link">
+			Блоги <i class="icon caret down"></i>
+			<div class="menu">
+				<a class="item" href="/blog" itemprop="url">Все записи</a> <a
+					class="item" href="/blog?type=news">Новости</a> <a class="item"
+					href="/blog?type=articles">Статьи</a> <a class="item"
+					href="/blog?type=personal">Персональные</a>
+				<a class="item attention" href="/about/blogs"
+						itemprop="url">Стань автором</a>
+			</div>
+		</div>
+
+		<div class="ui dropdown item submenu-link">
+			Новости <i class="icon caret down"></i>
+			<div class="menu">
+				<a class="item" href="/news" itemprop="url">Все новости</a> <a
+					class="item attention" href="/news/lenta">Лента новостей</a> <a
+					class="item" href="/hardnews">Hardware</a> <a class="item"
+					href="/softnews">Software</a> <a class="item" href="/itnews">IT
+					рынок</a> <a class="item" href="/sitenews">Новости сайта</a>
+			</div>
+		</div>
+
+		<div class="ui dropdown item submenu-link" href="/lab">
+			Лаборатория <i class="icon caret down"></i>
+			<div class="menu">
+				<a class="item" href="/lab" itemprop="url">Все статьи</a> <a
+					class="item" href="/lab/video">Видеокарты</a> <a class="item"
+					href="/lab/cpu">Процессоры</a> <a class="item"
+					href="/lab/motherboard">Материнские платы</a> <a class="item"
+					href="/lab/cooler">Охлаждение</a> <a class="item"
+					href="/lab/memory">Память</a> <a class="item" href="/lab/ssd">Накопители
+					SSD</a> <a class="item" href="/lab/psu">Блоки питания</a> <a
+					class="item" href="/lab/case">Корпуса</a> <a class="item"
+					href="/lab/games">Игры</a> <a class="item" href="/lab/smartphones">Смартфоны</a>
+				<a class="item" href="/lab/tablets">Планшеты</a> <a class="item"
+					href="/lab/notebook">Ноутбуки</a>
+
+			</div>
+		</div>
+
+		<div class="ui dropdown item submenu-link">
+			Другое <i class="icon caret down"></i>
+			<div class="menu">
+				<a class="item attention" href="/cpubase" itemprop="url">Статистика разгона</a>
+				<a class="item" href="/tag" itemprop="url">Теги</a> <a class="item"
+					href="/files" itemprop="url">Файловый архив</a> <a class="item"
+					href="/about/publicity" itemprop="url">Реклама</a> <a class="item"
+					href="/about/site" itemprop="url">О сайте</a>
+			</div>
+		</div>
+
+		
+		   
+			
+		
+
+
+		<div class="right menu">
+			<a class="item search"><i class="icon search"></i></a>
+			<div class="ui popup hidden search-menu">
+				<form method="GET" action="/search/result">
+					<div class="ui form">
+						<div class="ui icon input">
+							<input required="required" placeholder="Поиск..." type="text"
+								name="searchStr" class="site-main-search"> <i
+								class="inverted circular link icon search search-submit"></i>
+						</div>
+						<div>
+
+							<div class="grouped fields">
+								<div class="field">
+									<div class="ui radio checkbox">
+										<input name="sec" type="radio" checked value="all"> <label>Везде</label>
+									</div>
+								</div>
+								<div class="field">
+									<div class="ui radio checkbox">
+										<input name="sec" type="radio" value="news"> <label>Новости</label>
+									</div>
+								</div>
+								<div class="field">
+									<div class="ui radio checkbox">
+										<input name="sec" type="radio" value="articles"> <label>Статьи</label>
+									</div>
+								</div>
+								<div class="field">
+									<div class="ui radio checkbox">
+										<input name="sec" type="radio" value="blogs"> <label>Блоги</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						или <a href="/tag">поиск по тегам</a>
+					</div>
+				</form>
+			</div>
+
+			
+				<a class="item user-login"><i class="icon user circle outline"></i></a>
+				<div class="ui popup hidden user-login-menu">
+					<div class="ui buttons">
+						<a href="https://forums.overclockers.ru/ucp.php?mode=login&amp;redirect=https://overclockers.ru"><button
+								class="ui positive button on-login">Вход</button></a>
+						<div class="or" data-text="||"></div>
+						<a href="https://forums.overclockers.ru/ucp.php?mode=register"><button
+								class="ui button on-login">Регистрация</button></a>
+					</div>
+				</div>
+			
+
+			
+				<a class="item resize-link hand-link"><i
+					class="icon expand"></i></a>
+			
+
+
+			<a class="item hostkey"
+				href="http://billing.hostkey.ru/aff.php?aff=073" target="_blank">
+				<img src="/assets/hostkey.png" class="ui"/>
+			</a>
+
+
+		</div>
+	</div>
+</div>
+
+
+
+
+<div class="ui container main-wrap">
+    <div class="ui grid">
+        <div class="sixteen wide column err-num">
+        404
+        </div>
+    </div>
+
+    <div class="ui grid">
+        <div class="sixteen wide column err-content">
+        
+<div class="ui container">
+	<div class="ui grid">
+		<div class="three wide column"></div>
+
+		<div class="ten wide center aligned column">
+
+			<h1>Страница не найдена</h1>
+
+			<h4>К сожалению, запрашиваемый вами адрес
+			
+
+			недоступен
+				<br>Страница могла быть удалена, переименована или вы допустили ошибку в адресе.
+
+				<p>Пожалуйста, перейдите на <a href="/">главную страницу</a> сайта и
+				попробуйте еще раз.</p>
+			</h4>
+		</div>
+
+		<div class="three wide column"></div>
+	</div>
+</div>
+
+
+        </div>
+    </div>
+
+    <div class="ui grid">
+        <div class="sixteen wide column material-other-feed container-block top-news-link">
+            <h3>Возможно вас заинтересует</h3>
+                     <div class="ui tab active" data-tab="newsPopular"> <div class="ui feed news"> <div class="event material-id-58501"> <div class="content"> <div class="summary"> <a href="/blog/TEXHAPb/show/58501/sozdateli-kriptovaljuty-igra-v-kalmara-okazalis-moshennikami-a-cena-tokena-upala-na-90-000-000?utm_source=overclockers&amp;utm_medium=referral&amp;utm_term=index&amp;utm_content=top_news" class="" title="Тысяч людей потеряли все свои сбережения"> Создатели криптовалюты Игра в кальмара оказались мошенниками, а цена токена упала на 90 000 000% </a> <div class="meta"> <a href="/blog/TEXHAPb/show/58501/sozdateli-kriptovaljuty-igra-v-kalmara-okazalis-moshennikami-a-cena-tokena-upala-na-90-000-000#comments" class="comments-count hot"><i class="icon comment"></i><span class="cc-real">115</span></a> </div> </div> </div> </div> <div class="event material-id-114573"> <div class="content"> <div class="summary"> <a href="/softnews/show/114573/ubisoft-otmechaet-35-letie-grandioznoj-rasprodazhej-v-svoem-magazine?utm_source=overclockers&amp;utm_medium=referral&amp;utm_term=index&amp;utm_content=top_news" class="" title="Играть, правда, всё равно не на чем."> Ubisoft отмечает 35-летие грандиозной распродажей в своём магазине </a> <div class="meta"> <a href="/softnews/show/114573/ubisoft-otmechaet-35-letie-grandioznoj-rasprodazhej-v-svoem-magazine#comments" class="comments-count "><i class="icon comment outline"></i><span class="cc-real">1</span></a> </div> </div> </div> </div> <div class="event material-id-58528"> <div class="content"> <div class="summary"> <a href="/blog/TEXHAPb/show/58528/dohody-majnerov-efira-padajut-nesmotrya-na-podorozhanie-efira-geforce-gtx-1660s-okupaetsya-za-14-mes?utm_source=overclockers&amp;utm_medium=referral&amp;utm_term=index&amp;utm_content=top_news" class="" title="Выгодно ли сегодня заниматься майнингом на новых видеокартах? Давайте разбираться вместе"> Доходы майнеров Эфира падают несмотря на подорожание Эфира – GeForce GTX 1660S окупается за 14 мес </a> <div class="meta"> <a href="/blog/TEXHAPb/show/58528/dohody-majnerov-efira-padajut-nesmotrya-na-podorozhanie-efira-geforce-gtx-1660s-okupaetsya-za-14-mes#comments" class="comments-count mid"><i class="icon comment"></i><span class="cc-real">82</span></a> </div> </div> </div> </div> <div class="event material-id-58483"> <div class="content"> <div class="summary"> <a href="/blog/DenebCore/show/58483/der8auer-skalpiroval-core-i9-12900k-i-podozrevaet-soderzhanie-zolota-v-temointerfejse?utm_source=overclockers&amp;utm_medium=referral&amp;utm_term=index&amp;utm_content=top_news" class="" title="Оверклокер Roman Hartung провел исследование процессора Intel Core i9 12900k с удаленной крышкой теплорассеивателя. Вскрытие пациента показало много интересного, компания Intel не скупится использовать в своем флагмане Андер Лейк на сокете LGA 1700 передовые материалы и технологии."> Der8auer скальпировал Core i9 12900k и подозревает содержание золота в темоинтерфейсе </a> <div class="meta"> <a href="/blog/DenebCore/show/58483/der8auer-skalpiroval-core-i9-12900k-i-podozrevaet-soderzhanie-zolota-v-temointerfejse#comments" class="comments-count "><i class="icon comment outline"></i><span class="cc-real">35</span></a> </div> </div> </div> </div> <div class="event material-id-114576"> <div class="content"> <div class="summary"> <a href="/softnews/show/114576/luchshaya-antireklama-igroki-obstrelyali-tormozyaschij-pc-trejler-battlefield-2042-dizlajkami?utm_source=overclockers&amp;utm_medium=referral&amp;utm_term=index&amp;utm_content=top_news" class="" title="Кто-то в рекламном отделе DICE конкретно опростоволосился."> «Лучшая антиреклама»: игроки обстреляли тормозящий PC-трейлер Battlefield 2042 «дизлайками» </a> <div class="meta"> <a href="/softnews/show/114576/luchshaya-antireklama-igroki-obstrelyali-tormozyaschij-pc-trejler-battlefield-2042-dizlajkami#comments" class="comments-count "><i class="icon comment outline"></i><span class="cc-real">33</span></a> </div> </div> </div> </div> </div> </div> <div class="ui tab" data-tab="newsDiscussed"> <div class="ui feed news"> <div class="event material-id-58509"> <div class="content"> <div class="summary"> <a href="/blog/mpanasovsky/show/58509/processory-intel-alder-lake-dostupny-dlya-predzakaza-v-rossii-po-cene-24-990-58-590-rublej?utm_source=overclockers&amp;utm_medium=referral&amp;utm_term=index&amp;utm_content=top_news" class="" title="Продаются все шесть процессоров."> Процессоры Intel Alder Lake доступны для предзаказа в России по цене 24 990-58 590 рублей </a> <div class="meta"> <a href="/blog/mpanasovsky/show/58509/processory-intel-alder-lake-dostupny-dlya-predzakaza-v-rossii-po-cene-24-990-58-590-rublej#comments" class="comments-count hot"><i class="icon comment"></i><span class="cc-real">288</span></a> </div> </div> </div> </div> <div class="event material-id-58416"> <div class="content"> <div class="summary"> <a href="/blog/VideoGame/show/58416/processory-intel-alder-lake-eto-uverennyj-shag-vpered-i-konkurenciya-amd-ili-toptanie-na-meste?utm_source=overclockers&amp;utm_medium=referral&amp;utm_term=index&amp;utm_content=top_news" class="" title="Все IT сообщество сильно будоражит от того, что Intel все-таки смогла. Появились первые бенчмарки процессоров Intel Core i9 12900K и AMD Ryzen 9 5950X, в которых AMD Ryzen 9 5950X был разгромлен. Но было ли это сражение честным, давайте разберемся."> Процессоры Intel Alder Lake – это уверенный шаг вперёд и конкуренция AMD, или топтание на месте </a> <div class="meta"> <a href="/blog/VideoGame/show/58416/processory-intel-alder-lake-eto-uverennyj-shag-vpered-i-konkurenciya-amd-ili-toptanie-na-meste#comments" class="comments-count hot"><i class="icon comment"></i><span class="cc-real">142</span></a> </div> </div> </div> </div> <div class="event material-id-58569"> <div class="content"> <div class="summary"> <a href="/blog/Zeroblog/show/58569/intel-slukavila-v-teste-core-i9-12900k-i-ryzen-9-5950x-ogranichiv-tdp-poslednego?utm_source=overclockers&amp;utm_medium=referral&amp;utm_term=index&amp;utm_content=top_news" class="" title="&quot;Синий&quot; процессор потреблял почти в 2.5 раза больше энергии"> Intel слукавила в тесте Core i9-12900K и Ryzen 9 5950X, ограничив TDP последнего </a> <div class="meta"> <a href="/blog/Zeroblog/show/58569/intel-slukavila-v-teste-core-i9-12900k-i-ryzen-9-5950x-ogranichiv-tdp-poslednego#comments" class="comments-count hot"><i class="icon comment"></i><span class="cc-real">137</span></a> </div> </div> </div> </div> <div class="event material-id-58501"> <div class="content"> <div class="summary"> <a href="/blog/TEXHAPb/show/58501/sozdateli-kriptovaljuty-igra-v-kalmara-okazalis-moshennikami-a-cena-tokena-upala-na-90-000-000?utm_source=overclockers&amp;utm_medium=referral&amp;utm_term=index&amp;utm_content=top_news" class="" title="Тысяч людей потеряли все свои сбережения"> Создатели криптовалюты Игра в кальмара оказались мошенниками, а цена токена упала на 90 000 000% </a> <div class="meta"> <a href="/blog/TEXHAPb/show/58501/sozdateli-kriptovaljuty-igra-v-kalmara-okazalis-moshennikami-a-cena-tokena-upala-na-90-000-000#comments" class="comments-count hot"><i class="icon comment"></i><span class="cc-real">115</span></a> </div> </div> </div> </div> <div class="event material-id-58528"> <div class="content"> <div class="summary"> <a href="/blog/TEXHAPb/show/58528/dohody-majnerov-efira-padajut-nesmotrya-na-podorozhanie-efira-geforce-gtx-1660s-okupaetsya-za-14-mes?utm_source=overclockers&amp;utm_medium=referral&amp;utm_term=index&amp;utm_content=top_news" class="" title="Выгодно ли сегодня заниматься майнингом на новых видеокартах? Давайте разбираться вместе"> Доходы майнеров Эфира падают несмотря на подорожание Эфира – GeForce GTX 1660S окупается за 14 мес </a> <div class="meta"> <a href="/blog/TEXHAPb/show/58528/dohody-majnerov-efira-padajut-nesmotrya-na-podorozhanie-efira-geforce-gtx-1660s-okupaetsya-za-14-mes#comments" class="comments-count mid"><i class="icon comment"></i><span class="cc-real">82</span></a> </div> </div> </div> </div> </div> </div> 
+        </div>
+    </div>
+</div>
+
+<div class="ui inverted segment vertical footer" itemscope itemtype="http://schema.org/SiteNavigationElement">
+	<div class="ui container footer-wrap main-wrap">
+		<div class="ui three column stackable grid">
+			<div class="two wide column logo center aligned">
+				<a href="/"><img src="/assets/lazy_clear.gif" class="b-lazy" data-src="/assets/logo_wo_text_gray.png"/></a>
+				<div>overclockers.ru 2001–2021</div>
+			</div>
+			<div class="eight wide column top aligned">
+				<div class="ui horizontal list ">
+					<a href="/about/site" class="item" itemprop="url">О нас</a> <a href="/about/site"
+						class="item" itemprop="url">Контакты</a> <a href="/about/republishing"
+						class="item" itemprop="url">Использование материалов</a>
+						<a href="/about/publicity" class="item" itemprop="url">Реклама</a> <a href="/about/howto"
+						class="item" itemprop="url">Для авторов</a> 
+				</div>
+				<div class="sublink">
+					Нашли ошибку или опечатку? <a
+						class="dotted hand-link show-ctrl-enter-link">Выделите и
+						нажмите Ctrl+Enter</a>
+				</div>
+			</div>
+			<div class="four wide column center aligned">
+				<div class="ui horizontal list social-link">
+					<a class="item" href="https://www.facebook.com/overclockers.ru"><i
+						class="icon facebook"></i></a>
+						<a class="item" href="https://vk.com/overclockers_ru"><i class="icon vk"></i></a>
+						<a class="item" href="https://twitter.com/overclockers_ru"><i class="icon twitter"></i></a>
+						<a class="item" href="https://t.me/overclockers_news"><i class="icon telegram"></i></a>
+						<a class="item" href="https://www.instagram.com/overclockers.ru_official/"><i class="icon instagram"></i></a>
+				</div>
+			</div>
+			<div class="two wide column middle aligned">
+			
+
+	
+		<!-- allsite_footer -->
+<a href="https://w.tools/ru/?promo=OVERCLOCKERS.RU" rel="nofollow" class="item" style="white-space:nowrap;">Мы используем</a><br>
+<a href="https://w.tools/ru/?promo=OVERCLOCKERS.RU" rel="nofollow"><img src="//st.overclockers.ru/images/partners/wsr_logo.png" width="228" height="63" style="max-width: 100px !important; height: auto; padding-top: 3px;"></a>
+	
+
+
+
+			<script>
+    // google tag
+    // var firedGTM = false;
+    // window.addEventListener('scroll', () => {
+    //     if(navigator.userAgent.indexOf("Chrome-Lighthouse") < 0) {
+    //     if (firedGTM === false) {
+    //         firedGTM = true;
+    //         setTimeout(() => {
+    //         <!-- Google Tag Manager -->
+    //         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    //                 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    //             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    //             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    //         })(window,document,'script','dataLayer','GTM-M4V7BTD');
+    //         <!-- End Google Tag Manager -->
+    //
+    //             }, 100);
+    //         }
+    //     }
+    // });
+
+
+    // google ads
+var firedGAds = false;
+window.addEventListener('load', () => {
+if(navigator.userAgent.indexOf("Chrome-Lighthouse") < 0) {
+if (firedGAds === false) {
+firedGAds = true;
+setTimeout(() => {
+var GAdsObject = document.createElement("script");
+GAdsObject.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+GAdsObject.async = true;
+document.getElementsByTagName('head')[0].appendChild(GAdsObject);
+}, 3000);
+}
+}
+});
+
+    // rotor.over
+var firedRotor = false;
+window.addEventListener('load', () => {
+if(navigator.userAgent.indexOf("Chrome-Lighthouse") < 0) {
+if (firedRotor === false) {
+firedRotor = true;
+setTimeout(() => {
+                var RotorObject = document.createElement("script");
+                RotorObject.src = 'https://rotor.overclockers.ru/www/delivery/asyncjs.php';
+                RotorObject.async = true;
+                document.getElementsByTagName('head')[0].appendChild(RotorObject);
+                // console.log('rotor added');
+}, 3000);
+}
+}
+});
+
+
+    // yandex ads
+    // var firedYandexAds = false;
+    // window.addEventListener('scroll', () => {
+    //     if(navigator.userAgent.indexOf("Chrome-Lighthouse") < 0) {
+    //     if (firedYandexAds === false) {
+    //         firedYandexAds = true;
+    //         setTimeout(() => {
+            var YaAdObject = document.createElement("script");
+            YaAdObject.src = 'https://yandex.ru/ads/system/context.js';
+            YaAdObject.async = true;
+            document.getElementsByTagName('head')[0].appendChild(YaAdObject);
+
+    //     }, 1000);
+    //     }
+    // }
+    // });
+
+
+    // cackle widget
+    var firedCackle = false;
+    var cackle_widget = window.cackle_widget || [];
+
+    window.addEventListener('load', () => {
+        if(navigator.userAgent.indexOf("Chrome-Lighthouse") < 0) {
+        if (firedCackle === false) {
+            firedCackle = true;
+            setTimeout(() => {
+            var cackleObject = document.createElement('script');
+            cackleObject.src = 'https://cackle.me/widget.js';
+            cackleObject.async = true;
+            cackleObject.type = 'text/javascript';
+            document.getElementsByTagName('head')[0].appendChild(cackleObject);
+
+        }, 1000);
+        }
+    }
+    });
+
+
+    // livinet
+    // var firedLive = false;
+    // window.addEventListener('scroll', () => {
+    //     if(navigator.userAgent.indexOf("Chrome-Lighthouse") < 0) {
+    //     if (firedLive === false) {
+    //         firedLive = true;
+    //         setTimeout(() => {
+    //             new Image().src = "//counter.yadro.ru/hit?r"+
+    //                 escape(document.referrer)+((typeof(screen)=="undefined")?"":
+    //                     ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+    //                     screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+    //                 ";h"+escape(document.title.substring(0,80))+
+    //                 ";"+Math.random();
+    //         // console.log('live added');
+    //     }, 300);
+    //     }
+    // }
+    // });
+
+    // yandex FROM GTM
+    // var firedYandex = false;
+    // window.addEventListener('scroll', () => {
+    //     if(navigator.userAgent.indexOf("Chrome-Lighthouse") < 0) {
+    //     if (firedYandex === false) {
+    //         firedYandex = true;
+    //         setTimeout(() => {
+    //         <!-- Yandex.Metrika counter -->
+    //             (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    //                 m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    //             (window, document, "script", "https://cdn.jsdelivr.net/npm/yandex-metrica-watch/tag.js", "ym");
+    //         ym(24362446, "init", {
+    //             clickmap:true,
+    //             trackLinks:true,
+    //             accurateTrackBounce:true,
+    //             webvisor: true,
+    //             trackHash:true
+    //         });
+    //         // console.log('yandex added');
+    //     }, 300);
+    //     }
+    // }
+    // });
+
+
+    // ya share
+    // var firedShare = false;
+    // window.addEventListener('load', () => {
+    //     if(navigator.userAgent.indexOf("Chrome-Lighthouse") < 0) {
+    //     if (firedShare === false) {
+    //         firedShare = true;
+    //         setTimeout(() => {
+    //             var ShareObject = document.createElement("script");
+    //         ShareObject.src = 'https://yastatic.net/share2/share.js';
+    //         ShareObject.async = true;
+    //         document.getElementsByTagName('head')[0].appendChild(ShareObject);
+    //         // console.log('share added');
+    //     }, 3000);
+    //     }
+    // }
+    // });
+
+
+    // mailru
+    // var firedMail = false;
+    // window.addEventListener('scroll', () => {
+    //     if(navigator.userAgent.indexOf("Chrome-Lighthouse") < 0) {
+    //     if (firedMail === false) {
+    //         firedMail = true;
+    //         setTimeout(() => {
+    //
+    //         var _tmr = window._tmr || (window._tmr = []);
+    //         _tmr.push({id: "3118112", type: "pageView", start: (new Date()).getTime()});
+    //         (function (d, w, id) {
+    //             if (d.getElementById(id)) return;
+    //             var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+    //             ts.src = "https://top-fwz1.mail.ru/js/code.js";
+    //             var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+    //             if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+    //         })(document, window, "topmailru-code");
+    //         // console.log('mailru added');
+    //     }, 300);
+    //     }
+    // }
+    // });
+
+</script>
+
+
+<!--LiveInternet logo--><a href="//www.liveinternet.ru/click" target="_blank" class="liveinet-logo"><img src="//counter.yadro.ru/logo?54.2" alt="" title="LiveInternet: показано число просмотров и посетителей за 24 часа" height="31" width="88" border="0"></a><!--/LiveInternet-->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M4V7BTD"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+			
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<script type="text/javascript" src="/assets/app.js?v=156" ></script>
+</body>
+</html>

@@ -3,10 +3,11 @@
 // src/Controller/LuckyController.php
 namespace App\Controller;
 
-use App\Entity\User;
+use App\Entity\News;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Psr\Log\LoggerInterface;
 
 class LuckyController extends AbstractController
 {
@@ -25,12 +26,43 @@ class LuckyController extends AbstractController
         );
     }
 
+
     /**
-     * @Route("/resolver/{id}")
+     * @Route("/logger/")
      */
-    public function index(User $user)
+    public function logger(LoggerInterface $logger)
     {
-        return new Response('Hello '.$user->getUsername().'!');
+
+    throw new \Exception('Something went wrong!');
+
+        $logger->debug('debug');
+        $logger->info('I just got the logger');
+        $logger->error('An error occurred');
+
+        $logger->critical('I left the oven on!', [
+            // include extra "context" info in your logs
+            'cause' => 'in_hurry',
+        ]);
+
+
+        return new Response('1');
+    }
+
+
+    /**
+     * @Route("/db-test/")
+     */
+    public function dbtest()
+    {
+
+        $repository = $this->getDoctrine()->getRepository(News::class);
+
+        // массив всех объектов App\Entity\News Object
+        $data = $repository->findAll();
+
+        echo '<pre>'.print_r($data, 1).'</pre>';
+
+        return new Response('1');
     }
 }
 
