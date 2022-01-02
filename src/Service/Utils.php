@@ -1,12 +1,78 @@
 <?php
 
-namespace App;
+namespace App\Service;
 
-/**
- */
-class Utils
-{
+use Symfony\Component\HttpFoundation\RequestStack;
 
+class Utils {
+
+    private $requestStack;
+
+    public function __construct(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
+
+    public function exampleSession()
+    {
+        $session = $this->requestStack->getSession();
+
+        // stores an attribute in the session for later reuse
+        $session->set('foo', 'attribute-value');
+
+        // gets an attribute by name
+        $foo = $session->get('foo');
+
+        // the second argument is the value returned when the attribute doesn't exist
+        $filters = $session->get('filters', []);
+
+        // ...
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function load404($siteUrl)
+    {
+        $path = substr($_SERVER['REQUEST_URI'], 1);
+        $path = preg_replace('~\?.*~i', '', $path);
+        if (strpos($path, '.')) {
+            $url = $siteUrl.$path;
+        } else {
+            return ;
+        }
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        $content = curl_exec($ch);
+        curl_close($ch);
+
+        fwrite($a = fopen('log.txt', 'a+'), "\n".date('Y-m-d H:i:s').' '.$url); fclose($a);
+
+        //if ($content) {
+            $dirs = explode('/', $path);
+            $d = '';
+            foreach ($dirs as $k => $v) {
+                if ($d) {
+                    $d .= '/';
+                }
+                $d .= $v;
+                if (file_exists($d)) {
+                    continue;
+                }
+                if (preg_match('~\..{2,4}$~i', $d)) {
+                    continue;
+                }
+                mkdir($d);
+            }
+            fwrite($a = fopen(urldecode($path), 'w+'), $content); fclose($a);
+        /*} else {
+            echo 'empty content '.$url;
+        }*/
+        return true;
+    }
     /**
      * {@inheritdoc}
      */
@@ -67,18 +133,18 @@ class Utils
         $hdr = isset($opts['headers']) ? $opts['headers'] : true;
         $attrs = '';
         if (@$opts['style']) {
-        	$attrs = ' style="'.$opts['style'].'"';
+            $attrs = ' style="'.$opts['style'].'"';
         }
-    /*
-        // Вариант шапки без бутстрапа
-        echo '
-        <style type="text/css">
-        table.tt {empty-cells:show; border-collapse:collapse; margin:10px 0}
-        table.tt td {border:1px solid #ccc; padding: 3px; vertical-align: top;}
-        table.tt tr:nth-child(odd) {background-color:#eee; }
-        </style>
-        <table class="tt">';
-    */
+        /*
+            // Вариант шапки без бутстрапа
+            echo '
+            <style type="text/css">
+            table.tt {empty-cells:show; border-collapse:collapse; margin:10px 0}
+            table.tt td {border:1px solid #ccc; padding: 3px; vertical-align: top;}
+            table.tt tr:nth-child(odd) {background-color:#eee; }
+            </style>
+            <table class="tt">';
+        */
         $class = @$opts['class'] ?: 'table table-bordered table-condensed table-sm table-hover';
         echo '
         <table class="'.$class.'" '.$attrs.'>';
@@ -86,14 +152,14 @@ class Utils
         foreach ($offersData as $vals) {
             if (is_array($vals)) {
                 foreach ($vals as $k => $v) {
-                	$headers [$k]= $k;
+                    $headers [$k]= $k;
                 }
             }
         }
         if ($hdr) {
             echo '<tr>';
             foreach ($headers as $k => $v) {
-            	echo '<th>'.($hsc ? htmlspecialchars($k) : $k).'</th>';
+                echo '<th>'.($hsc ? htmlspecialchars($k) : $k).'</th>';
             }
         }
         echo '</tr>';
@@ -104,9 +170,9 @@ class Utils
                     $v = $vals[$header];
                     $v = $hsc ? htmlspecialchars($v) : $v;
                     if (@$opts['callbackValue']) {
-                    	$v = call_user_func($opts['callbackValue'], $header, $v);
+                        $v = call_user_func($opts['callbackValue'], $header, $v);
                     }
-                	echo '<td>'.$v.'</td>';
+                    echo '<td>'.$v.'</td>';
                 }
             } else {
                 echo '<td>'.$vals.'</td>';

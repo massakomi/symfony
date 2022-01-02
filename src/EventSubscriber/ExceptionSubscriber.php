@@ -23,17 +23,17 @@ class ExceptionSubscriber implements EventSubscriberInterface
 
     public function t1(ExceptionEvent $event)
     {
-        echo '[t1 метод]';
+        //echo '[t1 метод]';
     }
 
     public function t2(ExceptionEvent $event)
     {
-        echo '[t2 метод]';
+        //echo '[t2 метод]';
     }
 
     public function t3(ExceptionEvent $event)
     {
-        echo '[t3 метод]';
+        //echo '[t3 метод]';
     }
 }
 

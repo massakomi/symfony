@@ -6,6 +6,7 @@ namespace App\EventListener;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use App\Service\Utils;
 
 class ExceptionListener
 {
@@ -13,7 +14,11 @@ class ExceptionListener
     {
         // You get the exception object from the received event
         $exception = $event->getThrowable();
-        $message = sprintf(
+
+        if ($exception->getStatusCode() == 404) {
+            Utils::load404('https://hotelizmaelovo.ru/');
+        }
+        /*$message = sprintf(
             'My Error says: %s with code: %s',
             $exception->getMessage(),
             $exception->getCode()
@@ -33,6 +38,6 @@ class ExceptionListener
         }
 
         // sends the modified response object to the event
-        $event->setResponse($response);
+        $event->setResponse($response);*/
     }
 }

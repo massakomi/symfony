@@ -6,13 +6,46 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Task
 {
 
+    public $createDate;
+
     /**
      * @Assert\NotBlank
      */
     public $task;
 
-    public $createDate;
-    public $x;
+    /**
+     * @Assert\Blank
+     */
+    public $emptyVal;
+
+    /**
+     * @Assert\NotNull
+     */
+    public $notNull;
+
+    /**
+     * @Assert\IsNull
+     */
+    public $onlyNull;
+
+    /**
+     * @Assert\IsTrue
+     */
+    public $onlyTrue;
+
+    /**
+     * @Assert\IsFalse
+     */
+    public $onlyFalse;
+
+    /**
+     * @Assert\Type("integer")
+     */
+    public $onlyInts;
+
+
+
+
 
     /**
      * @Assert\NotBlank
@@ -20,7 +53,7 @@ class Task
      */
     protected $dueDate;
 
-    /*public function getTask(): string
+    public function getTask(): string
     {
         return $this->task;
     }
@@ -28,7 +61,7 @@ class Task
     public function setTask(string $task): void
     {
         $this->task = $task;
-    }*/
+    }
 
     public function getDueDate(): ?\DateTime
     {
