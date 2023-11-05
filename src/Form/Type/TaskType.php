@@ -24,7 +24,7 @@ class TaskType extends AbstractType
                 'required' => $options['require_due_date'],
             ])
             // угадываемый тип поля
-            ->add('x')
+            //->add('x')
             ->add('createDate')
             // неотображаемое поле (не выходит ошибка отсутствия поля в объекте)
             ->add('agreeTerms', CheckboxType::class, ['mapped' => false])

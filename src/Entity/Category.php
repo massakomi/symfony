@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -130,5 +131,10 @@ class Category
         $this->image = $image;
 
         return $this;
+    }
+
+    public function isIsPublished(): ?bool
+    {
+        return $this->is_published;
     }
 }

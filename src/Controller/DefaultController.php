@@ -1,48 +1,57 @@
 <?php
-// src/Controller/DefaultController.php
+
 namespace App\Controller;
 
-use App\GreetingGenerator;
-use App\Service\Utils;
+use App\Entity\Product;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Comment;
-use App\Entity\Task;
 use App\Entity\News;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class DefaultController extends AbstractController
 {
 
+    /**
+     * index
+     * @Route("/", name="catalog")
+     */
+    public function index(ManagerRegistry $doctrine)
+    {
+        $repository = $doctrine->getRepository(Product::class);
+        $products = $repository->findAll();
+
+        return $this->render('catalog/products.html.twig', [
+            'products' => $products
+        ]);
+    }
 
     /**
-     * @Route("/", name="index")
+     * index
+     * @Route("/product/{slug}/", name="product")
      */
-    /*public function index(Utils $utils)
+    public function productPage(ManagerRegistry $doctrine)
     {
-        //func();
+        $repository = $doctrine->getRepository(Product::class);
+        $products = $repository->findAll();
 
-        return $this->render('default/index.html.twig', [
-
+        return $this->render('catalog/products.html.twig', [
+            'products' => $products
         ]);
-    }*/
-
+    }
 
     /**
      * Overclockers index
-     * @Route("/", name="index")
+     * @Route("/overclockers")
      */
-    public function index()
+    public function overclockers(ManagerRegistry $doctrine)
     {
-        $repository = $this->getDoctrine()->getRepository(News::class);
+        $repository = $doctrine->getRepository(News::class);
         $news = $repository->findAll();
 
-        $repository = $this->getDoctrine()->getRepository(Comment::class);
+        $repository = $doctrine->getRepository(Comment::class);
         $comments = $repository->findAll();
 
         return $this->render('overclockers/index.html.twig', [
@@ -50,7 +59,6 @@ class DefaultController extends AbstractController
             'comments' => $comments,
         ]);
     }
-
 
     /**
      * @Route("/news", name="news")
@@ -65,7 +73,7 @@ class DefaultController extends AbstractController
      */
     public function news_item(News $news)
     {
-        return $this->render('overclockers/one.html.twig', [
+        return $this->render('overclockers/news-one.html.twig', [
             'item' => $news,
         ]);
     }

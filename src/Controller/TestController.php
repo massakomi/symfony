@@ -6,10 +6,12 @@ namespace App\Controller;
 use App\Entity\News;
 use App\Entity\Product;
 use App\GreetingGenerator;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -18,12 +20,12 @@ class TestController extends AbstractController
 
 
     /**
-     * @Route("/routes")
+     * @Route("/routes", name="routes")
      */
-    public function indexTest($name='test', GreetingGenerator $generator)
+    public function indexTest(GreetingGenerator $generator, RouterInterface $router)
     {
 
-        $router = $this->get('router');
+        //$router = $this->get('router');
         $routes = $router->getRouteCollection();
         $content = '';
         foreach ($routes as $route) {
@@ -71,16 +73,12 @@ class TestController extends AbstractController
     /**
      * {@inheritdoc}
      */
-    public function testSql()
+    public function testSql(ManagerRegistry $doctrine)
     {
 
 
-        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager = $doctrine->getManager();
         $conn = $entityManager->getConnection();
-
-
-
-        exit;
 
         $sql = '
             SELECT * FROM product p
@@ -88,28 +86,28 @@ class TestController extends AbstractController
             ORDER BY p.price ASC
             ';
         $stmt = $conn->prepare($sql);
-        $stmt->execute(['price' => $price]);
+        $result = $stmt->executeQuery(['price' => 1]);
+
+        //new \Doctrine\DBAL\Statement();
 
         // returns an array of arrays (i.e. a raw data set)
-        return $stmt->fetchAllAssociative();
+        return $result->fetchAllAssociative();
     }
 
     /**
      * @Route("/product", name="create_product")
      */
-    public function createProduct(ValidatorInterface $validator): Response
+    public function createProduct(ValidatorInterface $validator, ManagerRegistry $doctrine): Response
     {
 
-        $this->testSql();
-
-        var_dump(1); exit;
+        $this->testSql($doctrine);
 
         // вы можете извлечь EntityManager через $this->getDoctrine()
         // или вы можете добавить к действию аргумент: createProduct(EntityManagerInterface $entityManager)
-        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager = $doctrine->getManager();
 
         $product = new Product();
-        $product->setName(null);
+        $product->setName('name');
         $product->setPrice('1212');
         //$product->setDescription('Ergonomic and stylish!');
 
@@ -130,9 +128,9 @@ class TestController extends AbstractController
     /**
      * @Route("/product/{id}", name="product_show")
      */
-    public function show(int $id): Response
+    public function show(int $id, ManagerRegistry $doctrine): Response
     {
-        $product = $this->getDoctrine()
+        $product = $doctrine
             ->getRepository(Product::class)
             ->find($id);
 

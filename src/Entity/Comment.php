@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CommentRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -141,5 +142,15 @@ class Comment
         $this->post = $post;
 
         return $this;
+    }
+
+    public function isIsPublished(): ?bool
+    {
+        return $this->is_published;
+    }
+
+    public function getNews(): ?News
+    {
+        return $this->news;
     }
 }

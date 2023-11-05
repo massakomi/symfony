@@ -1,0 +1,14 @@
+{% extends 'clear.html.twig' %}
+
+{% block title %}Каталог товаров{% endblock %}
+
+{% block content %}
+
+
+    {% for item in products %}
+        <a href="{{ path('product', {slug: item.id}) }}">
+            {{ item.name }} {{ item.price }}
+        </a>
+    {% endfor %}
+
+{% endblock %}

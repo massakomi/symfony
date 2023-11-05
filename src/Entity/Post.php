@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -192,5 +193,10 @@ class Post
         }
 
         return $this;
+    }
+
+    public function isIsPublished(): ?bool
+    {
+        return $this->is_published;
     }
 }
