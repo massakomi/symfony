@@ -53,20 +53,7 @@ class AdminUserController extends AdminBaseController
      */
     public function createAction(Request $request)
     {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-        if(($form->isSubmitted()) && ($form->isValid()))
-        {
-            $this->userService->handleCreate($user);
-            $this->addFlash('success', 'Пользователь создан!');
-            return $this->redirectToRoute('admin_user');
-        }
-        $forRender = parent::renderDefault();
-        $forRender['title'] = 'Форма создания пользователя';
-        $forRender['form'] = $form->createView();
-        return $this->render('admin/form.html.twig', $forRender);
-
+        return $this->updateAction($request, 0);
     }
 
     /**
@@ -77,20 +64,33 @@ class AdminUserController extends AdminBaseController
      */
     public function updateAction(Request $request, int $userId)
     {
-        $user = $this->userRepository->getOne($userId);
+        if ($userId) {
+            $user = $this->userRepository->getOne($userId);
+        } else {
+            $user = new User();
+        }
+
         $formUser = $this->createForm(UserType::class, $user);
         $formUser->handleRequest($request);
 
-            if ($formUser->isSubmitted() && $formUser->isValid()){
-                $this->userService->handleUpdate($user);
-                $this->addFlash('success', 'Изменения сохранены!');
-                return $this->redirectToRoute('admin_user');
+        if ($formUser->isSubmitted() && $formUser->isValid()){
+            if ($formUser->get('plainPassword')->getData()) {
+                $user->setPlainPassword($formUser->get('plainPassword')->getData());
             }
+            if ($userId) {
+                $this->userService->handleUpdate($user);
+            } else {
+                $this->userService->handleCreate($user);
+            }
+            $this->addFlash('success', $userId ? 'Изменения сохранены!' : 'Пользователь создан!');
+            return $this->redirectToRoute('admin_user');
+        }
 
-            $forRender = parent::renderDefault();
-            $forRender['title'] = 'Редактрование Пользователя';
-            $forRender['form'] = $formUser->createView();
-            return $this->render('admin/form.html.twig', $forRender);
-
+        $forRender = parent::renderDefault();
+        $forRender['title'] = $userId ? 'Изменение' : 'Создание';
+        $forRender['form'] = $formUser->createView();
+        return $this->render('admin/form.html.twig', $forRender);
     }
+
+
 }

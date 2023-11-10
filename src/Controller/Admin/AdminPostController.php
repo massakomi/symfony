@@ -5,18 +5,18 @@ namespace App\Controller\Admin;
 use App\Controller\Admin\AdminBaseController;
 use App\Entity\Post;
 use App\Form\PostType;
-use App\Repository\PostRepositoryInterface;
+use App\Repository\PostRepository;
 use App\Service\FileManagerServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminPostController extends AdminBaseController {
 
-    private $postRepository;
+    private $repository;
 
-    public function __construct(PostRepositoryInterface $postRepository)
+    public function __construct(PostRepository $repository)
     {
-        $this->postRepository = $postRepository;
+        $this->repository = $repository;
     }
 
 
@@ -25,8 +25,7 @@ class AdminPostController extends AdminBaseController {
      */
     public function index()
     {
-        $post = $this->getDoctrine()->getRepository(Post::class)
-            ->findAll();
+        $post = $this->repository->findAll();
         $forRender = parent::renderDefault();
         $forRender['title'] = 'Посты';
         $forRender['posts'] = $post;
@@ -38,21 +37,7 @@ class AdminPostController extends AdminBaseController {
      */
     public function create(Request $request)
     {
-        $en = $this->getDoctrine()->getManager();
-        $post = new Post();
-        $form = $this->createForm(PostType::class, $post);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $image = $form->get('image')->getData();
-            $this->postRepository->setCreatePost($post, $image);
-            $this->addFlash('success', 'Пост добавлен');
-            return $this->redirectToRoute('admin_post');
-        }
-        $forRender = parent::renderDefault();
-        $forRender['title'] = 'Создание поста';
-        $forRender['posts'] = $post;
-        $forRender['form'] = $form->createView();
-        return $this->render('admin/post/form.html.twig', $forRender);
+        return $this->update(0, $request);
     }
     
     /**
@@ -60,26 +45,42 @@ class AdminPostController extends AdminBaseController {
      * @param int $id
      * @param Request $request
      */
-    public function update(int $id, Request $request, FileManagerServiceInterface $fileManagerService)
+    public function update(int $id, Request $request)
     {
-        $post = $this->postRepository->getOnePost($id);
+        if ($id) {
+            $post = $this->repository->getOnePost($id);
+        } else {
+            $post = new Post();
+        }
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('save')->isClicked()) {
                 $image = $form->get('image')->getData();
-                $this->postRepository->setUpdatePost($post, $image);
-                $this->addFlash('success', 'Категория обновлена');
-            }
-            if ($form->get('delete')->isClicked()) {
-                $this->postRepository->setDeletePost($post);
-                $this->addFlash('success', 'Категория удалена');
+                if ($id) {
+                    $this->repository->setUpdatePost($post, $image);
+                } else {
+                    $this->repository->setCreatePost($post, $image);
+                }
+                $this->addFlash('success', 'Публикация '.($id ? 'изменена' : 'добавлена'));
             }
             return $this->redirectToRoute('admin_post');
         }
         $forRender = parent::renderDefault();
-        $forRender['title'] = 'Изменение категории';
+        $forRender['title'] = ($id ? 'Изменение' : 'Создание').' публикации';
         $forRender['form'] = $form->createView();
         return $this->render('admin/post/form.html.twig', $forRender);
+    }
+
+    /**
+     * @Route("/admin/post/delete/{id}", name="admin_post_delete")
+     * @param Request $request
+     */
+    public function admin_post_delete(int $id, Request $request)
+    {
+        $product = $this->repository->find($id);
+        $this->repository->setDeletePost($product);
+        $this->addFlash('success', 'Удалено');
+        return $this->redirectToRoute('admin_product');
     }
 }

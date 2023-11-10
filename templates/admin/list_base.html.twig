@@ -2,9 +2,19 @@
 {% block title %}{{ title }}{% endblock %}
 {% block body %}
     <div class="container-fluid">
-        <div class="row no-gutters">
-            <div class="col-12">
-                <h1 class="display-4 text-center mt-5">
+        <div class="row align-items-center">
+            <div class="col-2">
+                <a href="{{ path('admin_'~alias~'_create') }}" class="btn btn-success">Создать</a>
+            </div>
+            <div class="col">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="#">Главная</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+                    </ol>
+                </nav>
+
+                <h1 class="display-6">
                     {{ title }}
                 </h1>
             </div>
@@ -12,27 +22,16 @@
     </div>
 
     <div class="container-fluid">
-        <div class="row no-gutters">
-            <div class="col-12">
-                <a href="{{ path('admin_'~alias~'_create') }}" class="btn btn-success">Создать</a>
+
+        {# read and display all flash messages #}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
             </div>
-        </div>
-    </div>
+        {% endfor %}
 
-    <div class="container-fluid">
-        <div class="row no-gutters">
-            <div class="col-12">
+        {% block listing %}{% endblock %}
 
-                {# read and display all flash messages #}
-                {% for message in app.flashes('success') %}
-                    <div class="alert alert-success">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-
-                {% block listing %}{% endblock %}
-            </div>
-        </div>
     </div>
 
 {% endblock %}

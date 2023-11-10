@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Product;
 use App\Form\CategoryType;
 use App\Form\ProductType;
+use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -17,12 +18,13 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class AdminProductController extends AdminBaseController
 {
 
-    private $repository;
+    private $repository, $categoryRepository;
 
 
-    public function __construct(ProductRepository $productRepository)
+    public function __construct(ProductRepository $productRepository, CategoryRepository $categoryRepository)
     {
         $this->repository = $productRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -33,6 +35,12 @@ class AdminProductController extends AdminBaseController
         $forRender = parent::renderDefault();
         $forRender['title'] = 'Товары';
         $forRender['data'] = $this->repository->findAll();
+        foreach ($forRender['data'] as $k => $v) {
+            if ($v->getCategoryId()) {
+                $category = $this->categoryRepository->find($v->getCategoryId());
+                $v->setCategoryObject($category);
+            }
+        }
         $forRender['alias'] = 'product';
         return $this->render('admin/product/index.html.twig', $forRender);
     }

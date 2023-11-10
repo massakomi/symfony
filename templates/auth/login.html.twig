@@ -8,17 +8,26 @@
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <form action="{{ path('login') }}" method="post">
-        <label for="username">Email:</label>
-        <input type="text" id="email" name="_username" value="{{ last_username }}"/>
+    <h1>Вход</h1>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password"/>
-
-        {# If you want to control the URL the user is redirected to on success
-        <input type="hidden" name="_target_path" value="/account"/> #}
-
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        <button type="submit">login</button>
+    <form name="registration_form" action="{{ path('login') }}" method="post">
+        <div class="mb-3">
+            <label for="registration_form_email" class="form-label">Логин</label>
+            <input type="text" id="registration_form_email" name="_username" class="form-control" value="{{ last_username }}"/>
+        </div>
+        <div class="mb-3">
+            <label for="registration_form_plainPassword" class="form-label required">Пароль</label>
+            <input type="password" id="password" name="_password" class="form-control" />
+        </div>
+        <div class="mb-3">
+            {# If you want to control the URL the user is redirected to on success
+            <input type="hidden" name="_target_path" value="/account"/> #}
+            {# <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"> #}
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-success">Войти</button>
+        </div>
     </form>
+
+
 {% endblock %}

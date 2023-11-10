@@ -13,7 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Category[]    findAll()
  * @method Category[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CategoryRepository extends ServiceEntityRepository implements CategoryRepositoryInterface
+class CategoryRepository extends ServiceEntityRepository
 {
     private $manager;
 
@@ -50,7 +50,7 @@ class CategoryRepository extends ServiceEntityRepository implements CategoryRepo
         return $category;
     }
 
-    public function setDeleteCategory(Category $category)
+    public function setDelete(Category $category)
     {
         $this->manager->remove($category);
         $this->manager->flush();

@@ -11,7 +11,7 @@
     {% endblock %}
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-1">
     <div class="container-fluid">
     <a class="navbar-brand" href="{{ path('admin_home') }}">Symfony</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,9 +19,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('admin_home') }}">Главная</a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('admin_product') }}">Продукты</a>
             </li>
@@ -42,13 +39,10 @@
                     <a class="dropdown-item" href="#">Заказы</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" target="_blank" href="{{ path('news') }}">Выход на сайт </a>
-            </li>
         </ul>
 
         <form class="d-flex">
-            <a href="{{ path('app_logout') }}" class="btn btn-outline-info my-2 my-sm-0" type="submit">Выход</a>
+            <a href="{{ path('logout') }}" class="btn btn-outline-info my-2 my-sm-0" type="submit">Выход</a>
         </form>
     </div>
     </div>

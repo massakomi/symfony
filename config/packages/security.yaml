@@ -13,26 +13,28 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\User
-                property: username
+                property: email
         # used to reload user from session & other features (e.g. switch_user)
     firewalls:
         #secured_area:
-            # ...
         #    form_login:
-                # ...
         #        enable_csrf: true
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            # entry_point: http_basic
             lazy: true
             provider: app_user_provider
             logout:
-                path: app_logout
+                path: logout
             form_login:
                 # "login" is the name of the route created previously
                 login_path: login
                 check_path: login
+
+            #http_basic:
+            #    realm: Secured Area
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -43,5 +45,9 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/profile, roles: ROLE_USER }
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER  # админ автоматом и юзер тоже и т.д.
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]

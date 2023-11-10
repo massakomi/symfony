@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Product;
 use App\Form\Type\ImageType;
 use Doctrine\DBAL\Types\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -35,8 +37,18 @@ class ProductType extends AbstractType
             ->add('slug', null, [
                 'label' => 'Символьный код'
             ])
-            ->add('imagexx', ImageType::class, [
+            /*->add('imagexx', ImageType::class, [
                 'mapped' => false,
+            ])*/
+            ->add('category_id', EntityType::class, [
+                'required' => false,
+                'class' => Category::class,
+                'choice_label' => 'title',
+                'placeholder' => 'Выбрать',
+                'label' => 'Категория',
+                'choice_value' => function ($entity): string {
+                    return is_object($entity) ? $entity->getId() : $entity;
+                },
             ])
             ->add('detail_text', null, [
                 'label' => 'Описание полное'

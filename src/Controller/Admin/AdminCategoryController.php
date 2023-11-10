@@ -5,19 +5,19 @@ namespace App\Controller\Admin;
 use App\Controller\Admin\AdminBaseController;
 use App\Entity\Category;
 use App\Form\CategoryType;
-use App\Repository\CategoryRepositoryInterface;
+use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminCategoryController extends AdminBaseController
 {
 
-    private $categoryRepository;
+    private $repository;
 
 
-    public function __construct(CategoryRepositoryInterface $categoryRepository)
+    public function __construct(CategoryRepository $repository)
     {
-        $this->categoryRepository = $categoryRepository;
+        $this->repository = $repository;
     }
 
     /**
@@ -27,7 +27,7 @@ class AdminCategoryController extends AdminBaseController
     {
         $forRender = parent::renderDefault();
         $forRender['title'] = 'Категории';
-        $forRender['data'] = $this->categoryRepository->getAllCategory();
+        $forRender['data'] = $this->repository->getAllCategory();
         $forRender['alias'] = 'category';
         return $this->render('admin/category/index.html.twig', $forRender);
     }
@@ -38,18 +38,7 @@ class AdminCategoryController extends AdminBaseController
      */
     public function create(Request $request)
     {
-        $category = new Category();
-        $form = $this->createForm(CategoryType::class, $category);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->categoryRepository->setCreateCategory($category);
-            $this->addFlash('success', 'Категория добавлена');
-            return $this->redirectToRoute('admin_category');
-        }
-        $forRender = parent::renderDefault();
-        $forRender['title'] = 'Создание категории';
-        $forRender['form'] = $form->createView();
-        return $this->render('admin/form.html.twig', $forRender);
+        return $this->update(0, $request);
     }
 
 
@@ -60,23 +49,39 @@ class AdminCategoryController extends AdminBaseController
      */
     public function update(int $id, Request $request)
     {
-        $category = $this->categoryRepository->getOneCategory($id);
+        if ($id) {
+            $category = $this->repository->getOneCategory($id);
+        } else {
+            $category = new Category();
+        }
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('save')->isClicked()) {
-                $this->categoryRepository->setUpdateCategory($category);
-                $this->addFlash('success', 'Категория обновлена');
-            }
-            if ($form->get('delete')->isClicked()) {
-                $this->categoryRepository->setDeleteCategory($category);
-                $this->addFlash('success', 'Категория удалена');
+                if ($id) {
+                    $this->repository->setUpdateCategory($category);
+                } else {
+                    $this->repository->setCreateCategory($category);
+                }
+                $this->addFlash('success', 'Категория '.($id ? 'изменена' : 'добавлена'));
             }
             return $this->redirectToRoute('admin_category');
         }
         $forRender = parent::renderDefault();
-        $forRender['title'] = 'Изменение категории';
+        $forRender['title'] = $id ? 'Изменение' : 'Создание';
         $forRender['form'] = $form->createView();
         return $this->render('admin/form.html.twig', $forRender);
+    }
+
+    /**
+     * @Route("/admin/category/delete/{id}", name="admin_category_delete")
+     * @param Request $request
+     */
+    public function admin_category_delete(int $id, Request $request)
+    {
+        $product = $this->repository->find($id);
+        $this->repository->setDelete($product);
+        $this->addFlash('success', 'Удалено');
+        return $this->redirectToRoute('admin_product');
     }
 }

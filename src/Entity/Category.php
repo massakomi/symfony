@@ -50,6 +50,16 @@ class Category
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $parent;
+
+    /**
+     * @ORM\Column(type="integer", options={"default" : 500})
+     */
+    private $sort;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -116,9 +126,9 @@ class Category
         return $this->is_published;
     }
 
-    public function setIsPublished(): void
+    public function setIsPublished($value=true): void
     {
-        $this->is_published = self::PUBLISHED;
+        $this->is_published = $value;
     }
 
     public function getImage(): ?string
@@ -136,5 +146,29 @@ class Category
     public function isIsPublished(): ?bool
     {
         return $this->is_published;
+    }
+
+    public function getParent(): ?int
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?int $parent): static
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    public function getSort(): ?int
+    {
+        return $this->sort;
+    }
+
+    public function setSort(int $sort): static
+    {
+        $this->sort = $sort;
+
+        return $this;
     }
 }

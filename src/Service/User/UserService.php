@@ -33,8 +33,10 @@ class UserService
      */
     public function handleCreate(User $user)
     {
-        $password = $this->passwordEncoder->hashPassword($user, $user->getPlainPassword());
-        $user->setPassword($password);
+        if ($user->getPlainPassword()) {
+            $password = $this->passwordEncoder->hashPassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+        }
         $user->setRoles(["ROLE_ADMIN"]);
         $this->userRepository->setCreate($user);
 
@@ -47,11 +49,11 @@ class UserService
      */
     public function handleUpdate(User $user)
     {
-        $password = $this->passwordEncoder->hashPassword($user, $user->getPlainPassword());
-        $user->setPassword($password);
-
+        if ($user->getPlainPassword()) {
+            $password = $this->passwordEncoder->hashPassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+        }
         $this->userRepository->setSave($user);
-
         return $this;
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -63,6 +64,11 @@ class Product
      * @ORM\Column(type="boolean", options={"default" : 1})
      */
     private $active;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $category_id;
 
     public function getId(): ?int
     {
@@ -180,6 +186,30 @@ class Product
     public function setActive(bool $active): static
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    public function getCategoryId(): ?int
+    {
+        return $this->category_id;
+    }
+
+    public function setCategoryId(Category $category): static
+    {
+        $this->category_id = $category->getId();
+
+        return $this;
+    }
+
+    public function getCategoryObject(): Category
+    {
+        return $this->category_id;
+    }
+
+    public function setCategoryObject(Category $category)
+    {
+        $this->category_id = $category;
 
         return $this;
     }

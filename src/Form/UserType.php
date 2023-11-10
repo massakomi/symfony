@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
 {
@@ -23,15 +25,28 @@ class UserType extends AbstractType
             ->add('fullName', TextType::class, [
                 'label' => 'ФИО'
             ])
-            ->add('plainPassword', RepeatedType::class, array(
-                'type' => PasswordType::class,
+            ->add('username', TextType::class, [
+                'label' => 'username'
+            ])
+            ->add('plainPassword', RepeatedType::class, [
+                'mapped' => false,
+                'required' => false,
+                'attr' => ['autocomplete' => 'new-password', 'type' => 'password'],
                 'first_options' => array(
                     'label' => 'Пароль',
                 ),
                 'second_options' => array(
                     'label' => 'Повтор пароля',
                 ),
-            ))
+                'constraints' => [
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+                ],
+            ])
             ->add('save', SubmitType::class, array(
                 'label' => 'Сохранить'
             ));

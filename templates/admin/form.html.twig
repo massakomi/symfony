@@ -17,7 +17,7 @@
             <div class="col-12">
                 {{ form(form) }}
 
-                {% if path %}
+                {% if path is defined and path %}
                     <div class="mb-3">
                         <img src="{{ path }}" style="max-height: 100px"  alt="" />
                     </div>
