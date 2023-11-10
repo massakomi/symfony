@@ -17,19 +17,30 @@
     </a>
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="{{ path('admin_home') }}">Главная <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('admin_product') }}">Продукты</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ path('admin_user') }}">Пользователи</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="{{ path('admin_category') }}">Категории</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ path('admin_post') }}">Посты</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sale
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Способы оплаты</a>
+                    <a class="dropdown-item" href="#">Способы доставки</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Заказы</a>
+                </div>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" target="_blank" href="{{ path('news') }}">Выход на сайт </a>
             </li>
         </ul>

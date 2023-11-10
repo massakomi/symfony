@@ -1,0 +1,14 @@
+{% extends 'admin/list_base.html.twig' %}
+
+{% block listing %}
+    <ul>
+        {% for item in data %}
+            <li>
+                <a onclick="if (!confirm('Подтвердите')) return false;" href="{{ path('admin_product_delete', {'id': item.id}) }}">x</a>
+                {{ item.name }}
+                <a href="{{ path('admin_product_update', {'id': item.id}) }}">Изменить</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+

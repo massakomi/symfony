@@ -1,43 +1,10 @@
-{% extends 'admin/adminbase.html.twig' %}
-{% block title %}{{ title }}{% endblock %}
-{% block body %}
-    <div class="container-fluid">
-        <div class="row no-gutters">
-            <div class="col-12">
-                <h1 class="display-4 text-center mt-5">
-                    {{ title }}
-                </h1>
-            </div>
-        </div>
-    </div>
+{% extends 'admin/list_base.html.twig' %}
 
-    <div class="container-fluid">
-        <div class="row no-gutters">
-            <div class="col-12">
-                <a href="{{ path('admin_category_create') }}" class="btn btn-success">Создать категорию.</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid">
-        <div class="row no-gutters">
-            <div class="col-12">
-
-                {# read and display all flash messages #}
-                {% for message in app.flashes('success') %}
-                    <div class="alert alert-success">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-
-                <h2>Список категорий</h2>
-                <ul>
-                {% for item in data %}
-                    <li>{{ item.title }} <a href="{{ path('admin_category_update', {'id': item.id}) }}">Изменить</a></li>
-                {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </div>
-
+{% block listing %}
+    <ul>
+        {% for item in data %}
+            <li>{{ item.title }} <a href="{{ path('admin_category_update', {'id': item.id}) }}">Изменить</a></li>
+        {% endfor %}
+    </ul>
 {% endblock %}
+

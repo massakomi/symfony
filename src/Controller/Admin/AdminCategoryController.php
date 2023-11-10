@@ -28,6 +28,7 @@ class AdminCategoryController extends AdminBaseController
         $forRender = parent::renderDefault();
         $forRender['title'] = 'Категории';
         $forRender['data'] = $this->categoryRepository->getAllCategory();
+        $forRender['alias'] = 'category';
         return $this->render('admin/category/index.html.twig', $forRender);
     }
 
@@ -48,7 +49,7 @@ class AdminCategoryController extends AdminBaseController
         $forRender = parent::renderDefault();
         $forRender['title'] = 'Создание категории';
         $forRender['form'] = $form->createView();
-        return $this->render('admin/category/form.html.twig', $forRender);
+        return $this->render('admin/form.html.twig', $forRender);
     }
 
 
@@ -76,6 +77,6 @@ class AdminCategoryController extends AdminBaseController
         $forRender = parent::renderDefault();
         $forRender['title'] = 'Изменение категории';
         $forRender['form'] = $form->createView();
-        return $this->render('admin/category/form.html.twig', $forRender);
+        return $this->render('admin/form.html.twig', $forRender);
     }
 }

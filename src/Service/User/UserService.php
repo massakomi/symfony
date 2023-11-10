@@ -6,7 +6,7 @@ namespace App\Service\User;
 
 use App\Entity\User;
 use App\Repository\UserRepositoryInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserService
 {
@@ -16,12 +16,12 @@ class UserService
      */
     private $userRepository;
     /**
-     * @var UserPasswordEncoderInterface
+     * @var UserPasswordHasherInterface
      */
     private $passwordEncoder;
 
     public function __construct(UserRepositoryInterface $userRepository,
-                                UserPasswordEncoderInterface $passwordEncoder)
+                                UserPasswordHasherInterface $passwordEncoder)
     {
         $this->userRepository = $userRepository;
         $this->passwordEncoder = $passwordEncoder;
@@ -33,7 +33,7 @@ class UserService
      */
     public function handleCreate(User $user)
     {
-        $password = $this->passwordEncoder->encodePassword($user, $user->getPlainPassword());
+        $password = $this->passwordEncoder->hashPassword($user, $user->getPlainPassword());
         $user->setPassword($password);
         $user->setRoles(["ROLE_ADMIN"]);
         $this->userRepository->setCreate($user);
@@ -47,7 +47,7 @@ class UserService
      */
     public function handleUpdate(User $user)
     {
-        $password = $this->passwordEncoder->encodePassword($user, $user->getPlainPassword());
+        $password = $this->passwordEncoder->hashPassword($user, $user->getPlainPassword());
         $user->setPassword($password);
 
         $this->userRepository->setSave($user);

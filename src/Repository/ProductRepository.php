@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,37 +16,34 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ProductRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $manager;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $manager)
     {
+        $this->manager = $manager;
         parent::__construct($registry, Product::class);
     }
 
-    // /**
-    //  * @return Product[] Returns an array of Product objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function setCreate(Product $item): object
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $item->setCreateAtValue();
+        $item->setUpdateAtValue();
+        //$item->setActive(true);
+        $this->manager->persist($item);
+        $this->manager->flush();
+        return $item;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Product
+    public function setUpdate(Product $item): object
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $item->setUpdateAtValue();
+        $this->manager->flush();
+        return $item;
     }
-    */
+
+    public function setDelete(Product $item): void
+    {
+        $this->manager->remove($item);
+        $this->manager->flush();
+    }
 }

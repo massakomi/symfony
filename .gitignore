@@ -11,6 +11,7 @@
 ###< symfony/framework-bundle ###
 /public/assets/framework
 /public/upload
+/public/uploads/product
 /public/local
 /public/images
 /public/_trash

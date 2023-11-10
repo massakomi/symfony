@@ -1,0 +1,11 @@
+{# templates/admin/form/custom_types.html.twig #}
+{% block image_row %}
+
+    {% if path %}
+        <div class="mb-3">
+            <img src="{{ path }}" style="max-height: 100px" />
+        </div>
+    {% endif %}
+
+{% endblock %}
+

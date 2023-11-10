@@ -1,4 +1,4 @@
-{% extends 'admin/adminbase.html.twig' %}
+{% extends 'admin/base5.html.twig' %}
 {% block title %}{{ title }}{% endblock %}
 {% block body %}
     <div class="container-fluid">
@@ -14,7 +14,7 @@
     <div class="container-fluid">
         <div class="row no-gutters">
             <div class="col-12">
-                <a href="{{ path('admin_post_create') }}" class="btn btn-success">Создать пост</a>
+                <a href="{{ path('admin_'~alias~'_create') }}" class="btn btn-success">Создать</a>
             </div>
         </div>
     </div>
@@ -22,15 +22,15 @@
     <div class="container-fluid">
         <div class="row no-gutters">
             <div class="col-12">
-                <h2>Список постов</h2>
-                <ul>
-                {% for post in posts %}
-                    <li>
-                        {{ post.title }} <a href="{{ path('admin_post_update', {'id': post.id}) }}">Изменить</a>
-                        <img src="{{ asset('uploads/post/') }}{{ post.image }}" style="width: 100px" alt="">
-                    </li>
+
+                {# read and display all flash messages #}
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
                 {% endfor %}
-                </ul>
+
+                {% block listing %}{% endblock %}
             </div>
         </div>
     </div>

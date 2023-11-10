@@ -1,0 +1,12 @@
+{% extends 'admin/list_base.html.twig' %}
+
+{% block listing %}
+    <ul>
+        {% for user in users %}
+            <li>
+                {{ user.username }} <a href="{{ path('admin_user_update', {'userId': user.id}) }}">Изменить</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+

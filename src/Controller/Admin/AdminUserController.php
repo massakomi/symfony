@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AdminUserController extends AdminBaseController
 {
@@ -26,12 +26,12 @@ class AdminUserController extends AdminBaseController
      */
     private $userService;
 
-    /*public function __construct(UserRepositoryInterface $userRepository,
+    public function __construct(UserRepositoryInterface $userRepository,
                                 UserService $userService)
     {
         $this->userRepository = $userRepository;
         $this->userService = $userService;
-    }*/
+    }
 
     /**
      * @Route("/admin/user", name="admin_user")
@@ -42,6 +42,7 @@ class AdminUserController extends AdminBaseController
         $forRender = parent::renderDefault();
         $forRender['title'] = 'Пользователи';
         $forRender['users'] = $this->userRepository->getAll();
+        $forRender['alias'] = 'user';
         return $this->render('admin/user/index.html.twig', $forRender);
     }
 
@@ -64,7 +65,7 @@ class AdminUserController extends AdminBaseController
         $forRender = parent::renderDefault();
         $forRender['title'] = 'Форма создания пользователя';
         $forRender['form'] = $form->createView();
-        return $this->render('admin/user/form.html.twig', $forRender);
+        return $this->render('admin/form.html.twig', $forRender);
 
     }
 
@@ -89,7 +90,7 @@ class AdminUserController extends AdminBaseController
             $forRender = parent::renderDefault();
             $forRender['title'] = 'Редактрование Пользователя';
             $forRender['form'] = $formUser->createView();
-            return $this->render('admin/user/form.html.twig', $forRender);
+            return $this->render('admin/form.html.twig', $forRender);
 
     }
 }
