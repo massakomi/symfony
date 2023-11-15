@@ -72,15 +72,32 @@
                         </li>
                     {% endif %}
                 </ul>
-                <form class="d-flex">
+                <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('basket') }}">Корзина</a>
+                    </li>
+                </ul>
+                <!--<form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                </form>-->
             </div>
         </div>
     </nav>
 
-        {% block content %}{% endblock %}
+
+    {% if breadcrumbs %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Главная</a></li>
+            {% for key, value in breadcrumbs %}
+                <li class="breadcrumb-item active" aria-current="page">{{ value }}</li>
+            {% endfor %}
+        </ol>
+    </nav>
+    {% endif %}
+
+    {% block content %}{% endblock %}
 
 </div>
     </body>

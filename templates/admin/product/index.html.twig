@@ -7,6 +7,7 @@
     <tr>
         <th scope="col">#</th>
         <th scope="col">Name</th>
+        <th scope="col">Act</th>
         <th scope="col">Цена</th>
         <th scope="col">Цена old</th>
         <th scope="col">Категор</th>
@@ -20,6 +21,7 @@
         <tr class="table-secondary">
             <th scope="row">{{ key + 1 }}</th>
             <td>{{ item.name }}</td>
+            <td>{% if item.active %}Да{% endif %}</td>
             <td>{{ item.price }}</td>
             <td>{{ item.priceOld }}</td>
             <td>{{ item.categoryObject.title }}</td>

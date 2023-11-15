@@ -37,7 +37,7 @@ class PostRepository extends ServiceEntityRepository
         return parent::find($postId);
     }
 
-    public function setCreatePost(Post $post, UploadedFile $file): object
+    public function setCreatePost(Post $post, ?UploadedFile $file): object
     {
         if ($file) {
             $fileName = $this->fm->imagePostUpload($file);
@@ -51,7 +51,7 @@ class PostRepository extends ServiceEntityRepository
         return $post;
     }
 
-    public function setUpdatePost(Post $post, UploadedFile $file): object
+    public function setUpdatePost(Post $post, ?UploadedFile $file): object
     {
         $imageOld = $post->getImage();
         if ($file) {
@@ -66,7 +66,7 @@ class PostRepository extends ServiceEntityRepository
         return $post;
     }
 
-    public function setDeletePost(Post $post)
+    public function delete(Post $post)
     {
         $fileName = $post->getImage();
         if ($fileName) {

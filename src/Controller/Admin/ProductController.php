@@ -15,10 +15,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-class AdminProductController extends AdminBaseController
+class ProductController extends BaseController
 {
 
-    private $repository, $categoryRepository;
+    protected $repository, $categoryRepository;
 
 
     public function __construct(ProductRepository $productRepository, CategoryRepository $categoryRepository)

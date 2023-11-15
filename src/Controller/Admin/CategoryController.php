@@ -2,18 +2,16 @@
 
 namespace App\Controller\Admin;
 
-use App\Controller\Admin\AdminBaseController;
+use App\Controller\Admin\BaseController;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminCategoryController extends AdminBaseController
+class CategoryController extends BaseController
 {
-
-    private $repository;
-
+    protected $repository;
 
     public function __construct(CategoryRepository $repository)
     {

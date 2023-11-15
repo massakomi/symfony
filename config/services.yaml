@@ -7,6 +7,8 @@ parameters:
     image_post_directory: '%kernel.project_dir%\public\uploads\post/'
     image_product_directory: '%kernel.project_dir%\public\uploads\product/'
     image_product_directory_http: '/uploads/product/'
+    env(MONGODB_URL): ''
+    env(MONGODB_DB): ''
 
 services:
     # default configuration for services in *this* file
@@ -30,6 +32,7 @@ services:
     App\EventListener\ExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
+            - { name: kernel.event_listener, event: kernel.request }
 
     App\EventSubscriber\ExceptionSubscriber:
         tags:
@@ -38,3 +41,7 @@ services:
     App\Service\FileManagerService:
         arguments:
             $postImageDirectory: '%image_post_directory%'
+
+    attribute.logger.myformatter:
+        class: App\Service\LogsFormatter
+        arguments: [ null, 'Y-m-d H:i:s' ]

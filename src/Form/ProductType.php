@@ -47,7 +47,7 @@ class ProductType extends AbstractType
                 'placeholder' => 'Выбрать',
                 'label' => 'Категория',
                 'choice_value' => function ($entity): string {
-                    return is_object($entity) ? $entity->getId() : $entity;
+                    return is_object($entity) ? $entity->getId() : "$entity";
                 },
             ])
             ->add('detail_text', null, [

@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use Doctrine\Persistence\ManagerRegistry;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,6 +16,7 @@ use App\Entity\News;
 class DefaultController extends AbstractController
 {
 
+    public $breadcrumbs = [];
 
     /**
      * Данные для рендера
@@ -22,7 +25,8 @@ class DefaultController extends AbstractController
     {
         $user = $this->getUser();
         return [
-            'userId' => $user?->getId()
+            'userId' => $user?->getId(),
+            'breadcrumbs' => $this->breadcrumbs
         ];
     }
 
@@ -30,11 +34,12 @@ class DefaultController extends AbstractController
      * index
      * @Route("/", name="catalog")
      */
-    public function index(ManagerRegistry $doctrine)
+    public function index(ManagerRegistry $doctrine, LoggerInterface $logger)
     {
+        $this->breadcrumbs []= 'Оформление заказа';
         //$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $repository = $doctrine->getRepository(Product::class);
-        $products = $repository->findAll();
+        $products = $repository->findBy(['active' => true]);
         return $this->render('catalog/products.html.twig', [
             'products' => $products
         ] + $this->params());
@@ -42,52 +47,102 @@ class DefaultController extends AbstractController
 
     /**
      * index
-     * @Route("/product/{slug}/", name="product")
+     * @Route("/product/{id}/", name="product")
      */
-    public function productPage(ManagerRegistry $doctrine)
+    public function productPage(ManagerRegistry $doctrine, int $id)
     {
         $repository = $doctrine->getRepository(Product::class);
-        $products = $repository->findAll();
+        $product = $repository->find($id);
+        $this->breadcrumbs []= $product->getName();
 
-        return $this->render('catalog/products.html.twig', [
-            'products' => $products
+        return $this->render('catalog/product.html.twig', [
+                'product' => $product
+            ] + $this->params());
+    }
+
+    /**
+     * index
+     * @Route("/order", name="order")
+     */
+    public function order(RequestStack $requestStack, ManagerRegistry $doctrine)
+    {
+        return $this->render('catalog/order.html.twig', [
+            //'products' => $products
         ] + $this->params());
     }
 
     /**
-     * Overclockers index
-     * @Route("/overclockers")
+     * @Route("/basket/{mode}", name="basket")
      */
-    public function overclockers(ManagerRegistry $doctrine)
+    public function basket(RequestStack $requestStack, ManagerRegistry $doctrine, string $mode = '', int $id = 0)
     {
-        $repository = $doctrine->getRepository(News::class);
-        $news = $repository->findAll();
+        $request = $requestStack->getCurrentRequest();
+        $session = $requestStack->getSession();
+        $basket = $session->get('basket');
+        if (!$basket) {
+            $basket = [];
+        }
+        if ($mode == 'add') {
+            $id = $request->query->get('id');
+            if (!$id) {
+                return $this->json(['error' => 'empty id']);
+            }
+            $quantity = $request->query->get('quantity') > 0 ? $request->query->get('quantity') : 1;
+            if (!isset($basket [$id])) {
+                $basket [$id] = $quantity;
+            } else {
+                $basket [$id] += $quantity;
+            }
+            $session->set('basket', $basket);
+            return $this->json(['success' => true]);
+        }
+        if ($mode == 'update') {
+            $id = $request->query->get('id');
+            if (!$id) {
+                return $this->json(['error' => 'empty id']);
+            }
+            if (!isset($basket [$id])) {
+                return $this->json(['error' => 'basket item not found']);
+            }
+            $quantity = (int)$request->query->get('quantity');
+            if ($quantity < 1) {
+                return $this->json(['error' => 'empty quantity']);
+            }
+            $basket [$id] = $quantity;
+            $session->set('basket', $basket);
+            return $this->json(['success' => true]);
+        }
+        if ($mode == 'delete') {
+            $id = $request->query->get('id');
+            if (!$id) {
+                return $this->json(['error' => 'empty id']);
+            }
+            unset($basket [$id]);
+            $session->set('basket', $basket);
+            return $this->redirectToRoute('basket');
+        }
+        $total = 0;
+        if ($basket) {
+            $repository = $doctrine->getRepository(Product::class);
+            $products = $repository->findBy([
+                'id' => array_keys($basket)
+            ]);
+            foreach ($products as $item) {
+                $quantity = $basket[$item->getId()];
+                $sum = $quantity * $item->getPrice();
+                $basket [$item->getId()] = [];
+                $basket [$item->getId()]['product'] = $item;
+                $basket [$item->getId()]['quantity'] = $quantity;
+                $basket [$item->getId()]['sum'] = $sum;
+                $total += $sum;
+            }
+        }
+        $this->breadcrumbs []= 'Корзина';
 
-        $repository = $doctrine->getRepository(Comment::class);
-        $comments = $repository->findAll();
-
-        return $this->render('overclockers/index.html.twig', [
-            'news' => $news,
-            'comments' => $comments,
-        ] + $this->params());
-    }
-
-    /**
-     * @Route("/news", name="news")
-     */
-    public function news()
-    {
-        return new Response('Simple! Easy! Great!');
-    }
-
-    /**
-     * @Route("/news/{slug}", name="news_item")
-     */
-    public function news_item(News $news)
-    {
-        return $this->render('overclockers/news-one.html.twig', [
-            'item' => $news,
-        ]);
+        return $this->render('catalog/basket.html.twig', [
+                'basket' => $basket,
+                'total' => $total,
+            ] + $this->params());
     }
 
 }

@@ -204,7 +204,7 @@ class Product
 
     public function getCategoryObject(): Category
     {
-        return $this->category_id;
+        return $this->category_id ?: new Category();
     }
 
     public function setCategoryObject(Category $category)

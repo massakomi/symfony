@@ -1,0 +1,323 @@
+{% extends 'clear.html.twig' %}
+
+{% block title %}Тест верстки{% endblock %}
+
+{% block content %}
+
+    <style type="text/css">
+        .bi {
+            width: 1em;
+            height: 1em;
+            fill: currentcolor;
+        }
+    </style>
+
+    <!-- межколоночное расстояние по x/y -->
+    <div class="container px-4 text-center">
+        <div class="row gx-4 gy-2">
+            <div class="col-6">
+                <div class="p-3 border bg-light">Custom column padding</div>
+            </div>
+            <div class="col-6">
+                <div class="p-3 border bg-light">Custom column padding</div>
+            </div>
+            <div class="col-6">
+                <div class="p-3 border bg-light">Custom column padding</div>
+            </div>
+            <div class="col-6">
+                <div class="p-3 border bg-light">Custom column padding</div>
+            </div>
+        </div>
+    </div>
+
+
+    <h3 class="mt-5">Horizontal rules</h3>
+
+    <hr>
+    <div class="text-success">
+        <hr>
+    </div>
+    <hr class="border border-danger border-2 opacity-50">
+    <hr class="border border-primary border-3 opacity-75">
+
+
+    <h3 class="mt-5">Texts</h3>
+    <code>Текст в теге code <code>&lt;section&gt;</code> should be wrapped as inline.</code> <br>
+    To switch directories, type <kbd>cd</kbd> followed by the name of the directory.<br>
+    <var>y</var> = <var>m</var><var>x</var> + <var>b</var><br>
+    <samp>This text is meant to be treated as sample output from a computer program.</samp><br>
+    <abbr title="HyperText Markup Language">HTML</abbr><br>
+
+
+    <h3 class="mt-5">Цитата и подробности</h3>
+    <figure xxclass="text-center">
+        <blockquote class="blockquote">
+            <p>A well-known quote, contained in a blockquote element.</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            Someone famous in <cite title="Source Title">Source Title</cite>
+        </figcaption>
+    </figure>
+    <div class="bd-example">
+        <details>
+            <summary>Some details</summary>
+            <p>More info about the details.</p>
+        </details>
+        <details open="">
+            <summary>Even more details</summary>
+            <p>Here are even more details about the details.</p>
+        </details>
+    </div>
+
+    <h3 class="mt-5">Типография  <small class="text-muted">With faded secondary text</small></h3>
+    <p class="lead">
+        This is a lead paragraph. It stands out from regular paragraphs.
+    </p>
+    <p>You can use the mark tag to <mark>highlight</mark> text.</p>
+    <p><s>This line of text is meant to be treated as no longer accurate.</s></p>
+    <p><u>This line of text will render as underlined.</u></p>
+    <p><small>This line of text is meant to be treated as fine print.</small></p>
+    <p><strong>This line rendered as bold text.</strong></p>
+    <p><em>This line rendered as italicized text.</em></p>
+
+
+    <h3 class="mt-5">Forms</h3>
+    <p>
+        <input type="time" id="time"> <input type="date" id="date"> <input type="datetime-local" id="datetime-local"> <input type="week" id="week"> <input type="month" id="month"> <input type="color" id="color"> <output name="result" id="output">Output</output>
+    </p>
+
+    <h3 class="mt-5">Description list alignment</h3>
+    <dl class="row">
+        <dt class="col-sm-3">Description lists</dt>
+        <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
+
+        <dt class="col-sm-3">Term</dt>
+        <dd class="col-sm-9">
+            <p>Definition for the term.</p>
+            <p>And some more placeholder definition text.</p>
+        </dd>
+
+        <dt class="col-sm-3">Another term</dt>
+        <dd class="col-sm-9">This definition is short, so no extra paragraphs or anything.</dd>
+
+        <dt class="col-sm-3 text-truncate">Truncated term is truncated</dt>
+        <dd class="col-sm-9">This can be useful when space is tight. Adds an ellipsis at the end.</dd>
+
+    </dl>
+
+
+
+    <h3 class="mt-5">Аккордеон</h3>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Accordion Item #1
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Accordion Item #2
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Accordion Item #3
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <h3 class="mt-5">Алерты</h3>
+
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Well done!</h4>
+        <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+        <hr>
+        <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+    </div>
+
+    <div class="alert alert-primary" role="alert">
+        A simple primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+    </div>
+    <div class="alert alert-primary d-flex align-items-center" role="alert">
+        <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </svg>
+        <div>
+            An example alert with an icon
+        </div>
+    </div>
+
+
+    <h3 class="mt-5">Badge</h3>
+    <h4>Example heading <span class="badge bg-secondary">New</span></h4>
+    <h5>Example heading <span class="badge bg-secondary">New</span></h5>
+    <h6>Example heading <span class="badge bg-secondary">New</span></h6>
+    <button type="button" class="btn btn-primary">
+        Notifications <span class="badge text-bg-secondary">4</span>
+    </button>
+    <button type="button" class="btn btn-primary position-relative">
+        Inbox
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    99+
+    <span class="visually-hidden">unread messages</span>
+  </span>
+    </button>
+
+
+    <h3 class="mt-5">Группы кнопок</h3>
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-primary">Left</button>
+        <button type="button" class="btn btn-primary">Middle</button>
+        <button type="button" class="btn btn-primary">Right</button>
+    </div>
+    <div class="btn-group">
+        <a href="#" class="btn btn-primary active" aria-current="page">Active link</a>
+        <a href="#" class="btn btn-primary">Link</a>
+        <a href="#" class="btn btn-primary">Link</a>
+    </div>
+    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+        <button type="button" class="btn btn-danger">Left</button>
+        <button type="button" class="btn btn-warning">Middle</button>
+        <button type="button" class="btn btn-success">Right</button>
+    </div>
+    <div class="btn-group" role="group" aria-label="Basic outlined example">
+        <button type="button" class="btn btn-outline-primary">Left</button>
+        <button type="button" class="btn btn-outline-primary">Middle</button>
+        <button type="button" class="btn btn-outline-primary">Right</button>
+    </div>
+
+
+    <h3 class="mt-5">Card  -  <a href="https://getbootstrap.com/docs/5.2/components/card/" target="_blank">много</a></h3>
+    <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+        </div>
+    </div>
+
+
+    <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+        </ul>
+    </div>
+
+    <div class="card" style="width: 18rem;">
+        <div class="card-header">
+            Featured
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+        </ul>
+    </div>
+
+    <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+        </ul>
+        <div class="card-body">
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Featured
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <h5 class="card-header">Featured</h5>
+        <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-header">
+            Quote
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <p>A well-known quote, contained in a blockquote element.</p>
+                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+            </blockquote>
+        </div>
+    </div>
+
+    <div class="card text-center">
+        <div class="card-header">
+            Featured
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+        <div class="card-footer text-muted">
+            2 days ago
+        </div>
+    </div>
+
+
+
+
+    <br><br><br><br><br><br><br><br><br><br><br>
+
+{% endblock %}

@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class AdminUserController extends AdminBaseController
+class UserController extends BaseController
 {
 
     /**
@@ -62,7 +62,7 @@ class AdminUserController extends AdminBaseController
      * @param int $userId
      * @return RedirectResponse|Response
      */
-    public function updateAction(Request $request, int $userId)
+    public function updateActionx(Request $request, int $userId)
     {
         if ($userId) {
             $user = $this->userRepository->getOne($userId);
@@ -74,6 +74,7 @@ class AdminUserController extends AdminBaseController
         $formUser->handleRequest($request);
 
         if ($formUser->isSubmitted() && $formUser->isValid()){
+            $user->setPlainPassword('');
             if ($formUser->get('plainPassword')->getData()) {
                 $user->setPlainPassword($formUser->get('plainPassword')->getData());
             }

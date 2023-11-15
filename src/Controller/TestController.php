@@ -3,9 +3,9 @@
 // src/Controller/LuckyController.php
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\News;
 use App\Entity\Product;
-use App\GreetingGenerator;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,10 +19,47 @@ class TestController extends AbstractController
 {
 
 
+
+    /**
+     * Overclockers index
+     * @Route("/overclockers")
+     */
+    public function overclockers(ManagerRegistry $doctrine)
+    {
+        $repository = $doctrine->getRepository(News::class);
+        $news = $repository->findAll();
+
+        $repository = $doctrine->getRepository(Comment::class);
+        $comments = $repository->findAll();
+
+        return $this->render('overclockers/index.html.twig', [
+                'news' => $news,
+                'comments' => $comments,
+            ] + $this->params());
+    }
+
+    /**
+     * @Route("/design", name="design")
+     */
+    public function design()
+    {
+        return $this->render('design.html.twig');
+    }
+
+    /**
+     * @Route("/news/{slug}", name="news_item")
+     */
+    public function news_item(News $news)
+    {
+        return $this->render('overclockers/news-one.html.twig', [
+            'item' => $news,
+        ]);
+    }
+
     /**
      * @Route("/routes", name="routes")
      */
-    public function indexTest(GreetingGenerator $generator, RouterInterface $router)
+    public function indexTest(RouterInterface $router)
     {
 
         //$router = $this->get('router');

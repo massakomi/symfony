@@ -1,0 +1,17 @@
+{% extends 'clear.html.twig' %}
+
+{% block title %}Карточка товара{% endblock %}
+
+{% block content %}
+
+<h1>{{ product.name }}</h1>
+
+{% if product.image %}
+    <p><img src="{{ imageDir }}{{ product.image }}" class="border border-danger rounded img-fluid" style="max-width: 400px" alt="" /></p>
+{% endif %}
+
+<p>{{ product.price|price }} <s>{{ product.priceOld|price }}</s> </p>
+
+<a href="#" class="card-link add2basket" data-id="{{ product.id }}">В корзину</a>
+
+{% endblock %}

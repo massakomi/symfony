@@ -23,6 +23,7 @@ class UserType extends AbstractType
                 'label' => 'Введите email'
             ))
             ->add('fullName', TextType::class, [
+                'required' => false,
                 'label' => 'ФИО'
             ])
             ->add('username', TextType::class, [
@@ -40,10 +41,10 @@ class UserType extends AbstractType
                 ),
                 'constraints' => [
                     new Length([
-                        'min' => 6,
+                        'min' => 5,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
                         // max length allowed by Symfony for security reasons
-                        'max' => 4096,
+                        'max' => 100,
                     ]),
                 ],
             ])

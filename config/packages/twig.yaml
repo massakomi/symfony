@@ -1,6 +1,8 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
     form_themes: ['bootstrap_5_layout.html.twig', 'admin/form/custom_types.html.twig']
+    globals:
+        imageDir: '%image_product_directory_http%'
 
 when@test:
     twig:
