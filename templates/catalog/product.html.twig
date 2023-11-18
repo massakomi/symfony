@@ -14,4 +14,37 @@
 
 <a href="#" class="card-link add2basket" data-id="{{ product.id }}">В корзину</a>
 
+
+    <hr class="border border-danger border-2 opacity-50">
+
+    {% if is_granted('ROLE_USER') %}
+        <h3>Добавить отзыв</h3>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {{ form(form) }}
+
+        {% if reviews %}
+            <ul>
+                {% for item in reviews %}
+                    <li data-userid="{{ item.userId }}">
+                        {{ item.username }}      {{ item.createAt|date('Y-m-d') }}   {{ item.message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% else %}
+        <div class="alert alert-warning">
+          <a href="{{ path('login') }}">Войдите на сайт</a>, чтобы оставлять отзывы
+        </div>
+    {% endif %}
+
+
+
+
 {% endblock %}

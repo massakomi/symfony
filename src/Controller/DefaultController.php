@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\Reviews;
+use App\Form\ReviewsType;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -49,15 +52,69 @@ class DefaultController extends AbstractController
      * index
      * @Route("/product/{id}/", name="product")
      */
-    public function productPage(ManagerRegistry $doctrine, int $id)
+    public function productPage(ManagerRegistry $doctrine, Request $request, int $id)
     {
         $repository = $doctrine->getRepository(Product::class);
         $product = $repository->find($id);
+
+        $reviews = $this->getReviews($id);
+        $form = $this->createForm(ReviewsType::class, new Reviews(), [
+            'action' => $this->generateUrl('review', ['id' => $id]),
+            'method' => 'POST',
+        ]);
+
         $this->breadcrumbs []= $product->getName();
 
         return $this->render('catalog/product.html.twig', [
-                'product' => $product
+                'product' => $product,
+                'reviews' => $reviews,
+                'form' => $form->createView(),
             ] + $this->params());
+    }
+
+    /**
+     * Хрень, надо куда-то выносить. вероятно в репозиторий
+     */
+    public function getReviews($id)
+    {
+        $redis = new \Redis();
+        $redis->connect('127.0.0.1', 6379);
+        //$redis->del('review-'.$id);
+        //$redis->expire('review-'.$id, 3);
+
+        $reviews = $redis->lRange('review-'.$id, 0, -1);
+        foreach ($reviews as $k => $v) {
+            $reviews [$k] = unserialize($v);
+        }
+        return $reviews;
+    }
+
+    /**
+     * @Route("/product/review/{id}/", name="review", methods={"POST"})
+     */
+    public function review(Request $request, int $id)
+    {
+        $redis = new \Redis();
+        $redis->connect('127.0.0.1', 6379);
+        $user = $this->getUser();
+        if ($user) {
+            $item = new Reviews();
+            $item->setUserId($user->getId());
+            $item->setUsername($user->getUsername());
+            $form = $this->createForm(ReviewsType::class, $item);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $item = $form->getData();
+                $redis->rPush('review-'.$id, serialize($item));
+                $this->addFlash('success', 'Отзыв добавлен');
+            } else {
+                foreach ($form->getErrors() as $error) {
+                    $this->addFlash('danger', $error->getMessage());
+                }
+            }
+            return $this->redirectToRoute('product', ['id' => $id]);
+        }
+        throw new \Exception('Нет доступа');
     }
 
     /**
@@ -72,6 +129,7 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * Эта помойка тоже все в одной куче...
      * @Route("/basket/{mode}", name="basket")
      */
     public function basket(RequestStack $requestStack, ManagerRegistry $doctrine, string $mode = '', int $id = 0)

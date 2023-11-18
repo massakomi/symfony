@@ -6,8 +6,10 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\News;
 use App\Entity\Product;
+use App\Message\SmsNotification;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Psr\Log\LoggerInterface;
@@ -19,23 +21,16 @@ class TestController extends AbstractController
 {
 
 
-
     /**
-     * Overclockers index
-     * @Route("/overclockers")
+     * @Route("/rabbitmq", name="rabbitmq")
      */
-    public function overclockers(ManagerRegistry $doctrine)
+    public function rabbitmq(MessageBusInterface $bus)
     {
-        $repository = $doctrine->getRepository(News::class);
-        $news = $repository->findAll();
 
-        $repository = $doctrine->getRepository(Comment::class);
-        $comments = $repository->findAll();
+        // will cause the SmsNotificationHandler to be called
+        $bus->dispatch(new SmsNotification('Look! I created a message!'));
 
-        return $this->render('overclockers/index.html.twig', [
-                'news' => $news,
-                'comments' => $comments,
-            ] + $this->params());
+        return $this->json([true]);
     }
 
     /**
@@ -43,17 +38,7 @@ class TestController extends AbstractController
      */
     public function design()
     {
-        return $this->render('design.html.twig');
-    }
-
-    /**
-     * @Route("/news/{slug}", name="news_item")
-     */
-    public function news_item(News $news)
-    {
-        return $this->render('overclockers/news-one.html.twig', [
-            'item' => $news,
-        ]);
+        return $this->render('test/design.html.twig');
     }
 
     /**
@@ -61,24 +46,28 @@ class TestController extends AbstractController
      */
     public function indexTest(RouterInterface $router)
     {
-
-        //$router = $this->get('router');
         $routes = $router->getRouteCollection();
-        $content = '';
+        $content = [];
+        $contentAdmin = [];
         foreach ($routes as $route) {
-            $content .= '<br /><a href="'.$route->getPath().'" target="_blank">'.$route->getPath().'</a>';
-            //var_dump($route->getPath());
-            //echo '<pre>'; print_r($route->getOptions()); echo '</pre>';
-            //echo '<pre>'; print_r($route->getDefaults()); echo '</pre>';
-            //$this->convertController($route);
+            $path = $route->getPath();
+            $controller = $route->getDefaults()['_controller'];
+            if (str_starts_with($path, '/_')) {
+                continue;
+            }
+            $url = preg_replace('~\{.*\}~', 1, $path);
+            $link = '<a href="'.$url.'" title="'.$controller.'" target="_blank">'.$path.'</a>';
+            if (str_starts_with($path, '/admin')) {
+                $contentAdmin []= $link;
+            } else {
+                $content []= $link;
+            }
         }
-
-        //$greeting = $generator->getRandomGreeting();
-
-        /*return $this->render('default/index.html.twig', [
-            'content' => $content
-        ]);*/
-        return new Response($content);
+        asort($content);
+        asort($contentAdmin);
+        $content = implode('<br />', array_unique($content));
+        $contentAdmin = implode('<br />', $contentAdmin);
+        return $this->render('test/routes.html.twig', compact('content', 'contentAdmin'));
 
     }
 
@@ -162,85 +151,12 @@ class TestController extends AbstractController
         return new Response('Saved new product with id '.$product->getId());
     }
 
-    /**
-     * @Route("/product/{id}", name="product_show")
-     */
-    public function show(int $id, ManagerRegistry $doctrine): Response
-    {
-        $product = $doctrine
-            ->getRepository(Product::class)
-            ->find($id);
-
-        if (!$product) {
-            throw $this->createNotFoundException(
-                'No product found for id '.$id
-            );
-        }
-
-        return new Response('Check out this great product: '.$product->getName());
-
-        // или отобразить шаблон
-        // в шаблоне, печатайте все с {{ product.name }}
-        // вернет $this->render('product/show.html.twig', ['product' => $product]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function test()
-    {
-        $id = 2;
-
-        $repository = $this->getDoctrine()->getRepository(Product::class);
-
-        // искать один Продукт по его основному ключу (обычно "id")
-        $product = $repository->find($id);
-
-        // искать один Продукт по имени
-        $product = $repository->findOneBy(['name' => 'Keyboard']);
-        // или по имени и цене
-        $product = $repository->findOneBy([
-            'name' => 'Keyboard',
-            'price' => 1999,
-        ]);
-
-        // искать несколько объектов Продуктов соответствующих имени, упорядоченные по цене
-        $products = $repository->findBy(
-            ['name' => 'Keyboard'],
-            ['price' => 'ASC']
-        );
-
-        // искать *все* объекты Продуктов
-        $products = $repository->findAll();
-    }
-
-
-
-
-
-
-    /**
-     * @Route("/lucky/number/{max}", name="app_lucky_number")
-     */
-    public function number(int $max): Response
-    {
-
-        $url = $this->generateUrl('app_lucky_number', ['max' => 10]);
-
-        $number = random_int(0, $max);
-
-        return new Response(
-            '<html><body>Lucky <a href="'.$url.'">number</a>: '.$number.'</body></html>'
-        );
-    }
-
 
     /**
      * @Route("/logger/")
      */
     public function logger(LoggerInterface $logger)
     {
-
         throw new \Exception('Something went wrong!');
 
         $logger->debug('debug');
@@ -252,27 +168,10 @@ class TestController extends AbstractController
             'cause' => 'in_hurry',
         ]);
 
-
         return new Response('1');
     }
 
 
-    /**
-     * @Route("/db-test/")
-     */
-    public function dbtest()
-    {
-
-        $repository = $this->getDoctrine()->getRepository(News::class);
-
-        // массив всех объектов App\Entity\News Object
-        $data = $repository->findAll();
-
-        echo '<pre>'.print_r($data, 1).'</pre>';
-
-        return new Response('1');
-    }
-    
     /**
      * @Route("/mailsample/send", name="mail_sample_send")
      */

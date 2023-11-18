@@ -1,0 +1,16 @@
+{% extends 'clear.html.twig' %}
+
+{% block title %}Роуты{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col">
+            {{ content|raw }}
+        </div>
+        <div class="col">
+            {{ contentAdmin|raw  }}
+        </div>
+    </div>
+
+{% endblock %}
