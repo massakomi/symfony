@@ -80,7 +80,7 @@ class LogsFormatter extends NormalizerFormatter
     /**
      * {@inheritDoc}
      */
-    public function format(array $record): string
+    public function format(array|\Monolog\LogRecord $record): string
     {
         $vars = parent::format($record);
 
